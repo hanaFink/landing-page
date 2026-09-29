@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&amp;family=Frank+Ruhl+Libre:wght@500;700&amp;family=Manrope:wght@400;600;700&amp;family=PT+Serif:wght@700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: 'Assistant', 'Manrope', system-ui, sans-serif; color: #1C2836; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #205080; text-decoration: none; }
+  a:hover { color: #123255; text-decoration: underline; }
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline: 3px solid #205080; outline-offset: 2px; }
+  button, input, textarea, select { font-family: inherit; }
+</style>
+</helmet>
+<div dir="{{ dir }}" style="background:#FFFFFF; min-height:100vh; font-size:18px; line-height:1.7;">
+
+  <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.97); backdrop-filter:blur(8px); border-bottom:1px solid #DCE3EB;">
+    <div style="height:2px; background:linear-gradient(90deg,#205080,#7C8899);"></div>
+    <div style="background:#EDF2F7; border-bottom:1px solid #DCE3EB;">
+      <div style="{{ utilRowStyle }}">
+        <span style="{{ callLabelStyle }}">{{ t.callUs }}</span>
+        <a href="{{ telLink }}" style="font-size:18px; font-weight:700; color:#1B4573; letter-spacing:0.01em;"><span dir="ltr" style="unicode-bidi:isolate; font-variant-numeric:tabular-nums;">{{ phoneDisplay }}</span></a>
+        <div style="margin-inline-start:auto; display:flex; align-items:center; gap:10px;">
+          <span style="{{ fsLabelStyle }}">{{ t.textSize }}</span>
+          <div style="display:flex; gap:4px;">
+            <button onClick="{{ setFs0 }}" aria-label="{{ t.fsSmall }}" style="{{ fs0Btn }}">A</button>
+            <button onClick="{{ setFs1 }}" aria-label="{{ t.fsMed }}" style="{{ fs1Btn }}">A</button>
+            <button onClick="{{ setFs2 }}" aria-label="{{ t.fsLarge }}" style="{{ fs2Btn }}">A</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="{{ headerRowStyle }}">
+      <div style="display:flex; align-items:center; gap:13px; margin-inline-end:auto; min-width:0; overflow:hidden;">
+        <img src="assets/logo.png" alt="{{ t.altLogo }}" style="{{ logoStyle }}" />
+        <div style="display:flex; flex-direction:column; line-height:1.25; min-width:0;">
+          <span style="{{ brandNameStyle }}">{{ t.name }}</span>
+          <span style="{{ roleStyle }}">{{ t.role }}</span>
+        </div>
+      </div>
+      <nav style="{{ navStyle }}">
+        <a href="#timeline" style="color:#3A4653;">{{ t.navAxis }}</a>
+        <a href="#deliverables" style="color:#3A4653;">{{ t.nav1 }}</a>
+        <a href="#how" style="color:#3A4653;">{{ t.nav2 }}</a>
+        <a href="#about" style="color:#3A4653;">{{ t.nav3 }}</a>
+        <a href="#faq" style="color:#3A4653;">{{ t.nav4 }}</a>
+        <a href="#links" style="color:#3A4653;">{{ t.navLinks }}</a>
+        <a href="#contact" style="color:#3A4653;">{{ t.nav5 }}</a>
+      </nav>
+      <div style="display:flex; align-items:center; gap:2px; border:1px solid #DCE3EB; border-radius:3px; padding:3px; background:#F5F8FA; flex:none;">
+        <button onClick="{{ setHe }}" style="{{ heBtn }}">{{ heLabel }}</button>
+        <button onClick="{{ setRu }}" style="{{ ruBtn }}">{{ ruLabel }}</button>
+      </div>
+      <a href="#contact" style="{{ headerCtaStyle }}">{{ t.ctaHeader }}</a>
+      <button onClick="{{ toggleMenu }}" aria-label="menu" style="{{ burgerStyle }}">☰</button>
+    </div>
+    <div style="{{ mobileMenuStyle }}">
+      <a href="#timeline" onClick="{{ closeMenu }}" style="color:#1C2836; font-size:19px; padding:6px 0;">{{ t.navAxis }}</a>
+      <a href="#deliverables" onClick="{{ closeMenu }}" style="color:#1C2836; font-size:19px; padding:6px 0;">{{ t.nav1 }}</a>
+      <a href="#how" onClick="{{ closeMenu }}" style="color:#1C2836; font-size:19px; padding:6px 0;">{{ t.nav2 }}</a>
+      <a href="#about" onClick="{{ closeMenu }}" style="color:#1C2836; font-size:19px; padding:6px 0;">{{ t.nav3 }}</a>
+      <a href="#faq" onClick="{{ closeMenu }}" style="color:#1C2836; font-size:19px; padding:6px 0;">{{ t.nav4 }}</a>
+      <a href="#links" onClick="{{ closeMenu }}" style="color:#1C2836; font-size:19px; padding:6px 0;">{{ t.navLinks }}</a>
+      <a href="#contact" onClick="{{ closeMenu }}" style="color:#1C2836; font-size:19px; padding:6px 0;">{{ t.nav5 }}</a>
+    </div>
+  </header>
+
+  <section style="background:linear-gradient(180deg,#FFFFFF 0%,#F5F8FA 100%); padding:clamp(36px,5vw,80px) 24px; overflow:hidden;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,72px); flex-wrap:wrap; align-items:center;">
+      <div style="flex:1 1 440px; min-width:290px;">
+        <div style="display:inline-flex; align-items:center; gap:10px; font-size:15px; color:#205080; letter-spacing:0.06em; margin-bottom:20px;">
+          <span style="width:34px; height:1px; background:#7C8899; display:inline-block;"></span>{{ t.heroEyebrow }}
+        </div>
+        <h1 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(32px,4.2vw,52px); line-height:1.22; margin:0 0 22px; color:#14273C; text-wrap:pretty;">{{ t.heroTitle }}</h1>
+        <p style="font-size:clamp(19px,1.6vw,22px); color:#3A4653; margin:0 0 18px; max-width:52ch; text-wrap:pretty;">{{ t.heroSub }}</p>
+        <p style="font-size:18px; color:#3A4653; margin:0 0 30px; max-width:52ch; border-inline-start:2px solid #7C8899; padding-inline-start:18px; text-wrap:pretty;">{{ t.heroNote }}</p>
+        <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+          <a href="#contact" style="background:#1B4573; color:#fff; padding:20px 30px; border-radius:3px; font-size:19px; font-weight:700;" style-hover="background:#123255; color:#fff; text-decoration:none;">{{ t.ctaHero }}</a>
+          <a href="{{ waLink }}" style="border:1.5px solid #205080; color:#205080; padding:19px 28px; border-radius:3px; font-size:18px; font-weight:600; background:#fff;" style-hover="background:#EDF1F6; text-decoration:none;">{{ t.ctaWhats }}</a>
+        </div>
+        <div style="font-size:16px; color:#3A4653; margin-top:14px;">{{ t.ctaMicro }}</div>
+        <div style="margin-top:32px; padding-top:22px; border-top:1px solid #DCE3EB; font-size:16px; color:#3A4653; display:flex; gap:12px; flex-wrap:wrap;">
+          <span>{{ t.trust1 }}</span><span style="color:#6C7889;">|</span>
+          <span>{{ t.trust2 }}</span><span style="color:#6C7889;">|</span>
+          <span>{{ t.trust3 }}</span>
+        </div>
+      </div>
+      <div style="flex:1 1 460px; min-width:280px;">
+        <div style="border:1px solid #DCE3EB; padding:10px; background:#fff; max-width:680px;">
+          <image-slot id="hero-workspace" src="assets/temp-workspace.png" shape="rounded" radius="3" style="width:100%; aspect-ratio:3/2;" placeholder="{{ t.altWorkspace }}"></image-slot>
+        </div>
+        <div style="max-width:680px; padding:13px 4px 0; font-size:14.5px; color:#47535F; line-height:1.55; text-wrap:pretty;">{{ t.workspaceCaption }}</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
+    <div style="max-width:1240px; margin:0 auto;">
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); line-height:1.28; margin:0 0 16px; color:#14273C; max-width:26ch; text-wrap:pretty;">{{ t.s1Title }}</h2>
+      <p style="font-size:19px; color:#3A4653; margin:0 0 40px; max-width:72ch; text-wrap:pretty;">{{ t.s1Sub }}</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:0 clamp(28px,4vw,56px);">
+        <sc-for list="{{ t.cards }}" as="c" hint-placeholder-count="6">
+          <div style="border-top:1px solid #D3DCE5; padding:20px 0 24px; display:flex; gap:16px; align-items:baseline;">
+            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:15px; color:#5A6675; font-variant-numeric:tabular-nums; flex:none; padding-top:4px;">{{ c.n }}</div>
+            <div>
+              <h3 style="font-size:21px; font-weight:700; margin:0 0 7px; color:#14273C;">{{ c.title }}</h3>
+              <p style="font-size:17px; color:#3A4653; margin:0; text-wrap:pretty;">{{ c.body }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="timeline" style="background:#F5F8FA; padding:clamp(44px,5.5vw,88px) 24px; border-block:1px solid #E4EAF1;">
+    <div style="max-width:1240px; margin:0 auto;">
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 14px; color:#14273C;">{{ t.axisTitle }}</h2>
+      <p style="font-size:19px; color:#3A4653; margin:0; max-width:64ch; text-wrap:pretty;">{{ t.axisSub }}</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); margin-top:44px;">
+        <sc-for list="{{ t.axis }}" as="a" hint-placeholder-count="5">
+          <div style="padding:0 clamp(12px,1.4vw,20px) 10px; border-top:2px solid #7C8899; border-inline-start:1px solid #D8E0E8;">
+            <div style="width:11px; height:11px; border-radius:50%; background:#1B4573; margin-top:-6px;"></div>
+            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:clamp(28px,3vw,36px); color:#14273C; line-height:1.1; margin:16px 0 3px;"><span dir="ltr" style="unicode-bidi:isolate; font-variant-numeric:tabular-nums;">{{ a.age }}</span></div>
+            <div style="font-size:13.5px; letter-spacing:0.05em; color:#5A6675; margin-bottom:10px;">{{ a.kicker }}</div>
+            <p style="font-size:16px; color:#3A4653; margin:0; line-height:1.55; text-wrap:pretty;">{{ a.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="font-size:15px; color:#47535F; margin:28px 0 0; max-width:78ch; text-wrap:pretty;">{{ t.axisNote }}</p>
+    </div>
+  </section>
+
+  <section id="deliverables" style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
+    <div style="max-width:1240px; margin:0 auto;">
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); color:#14273C; margin:0 0 16px; max-width:26ch; text-wrap:pretty;">{{ t.s2Title }}</h2>
+      <p style="font-size:19px; color:#3A4653; margin:0 0 40px; max-width:72ch; text-wrap:pretty;">{{ t.s2Sub }}</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:0 clamp(28px,4vw,56px);">
+        <sc-for list="{{ t.deliverables }}" as="d" hint-placeholder-count="4">
+          <div style="border-top:1px solid #D3DCE5; padding:20px 0 24px;">
+            <h3 style="font-size:21px; font-weight:700; margin:0 0 7px; color:#14273C;">{{ d.title }}</h3>
+            <p style="font-size:17px; color:#3A4653; margin:0; text-wrap:pretty;">{{ d.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#F5F8FA; padding:clamp(40px,5vw,76px) 24px; border-block:1px solid #E4EAF1;">
+    <div style="max-width:860px; margin:0 auto;">
+      <div style="font-size:13.5px; letter-spacing:0.09em; color:#5A6675; margin-bottom:14px;">{{ t.caseTag }}</div>
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(24px,2.6vw,34px); margin:0 0 22px; color:#14273C; text-wrap:pretty;">{{ t.caseTitle }}</h2>
+      <p style="font-size:clamp(18px,1.7vw,21px); color:#253340; margin:0 0 20px; line-height:1.68; text-wrap:pretty;">{{ t.caseBody }}</p>
+      <p style="font-size:19px; color:#14273C; margin:0 0 20px; border-inline-start:2px solid #7C8899; padding-inline-start:18px; line-height:1.6; text-wrap:pretty;">{{ t.caseOutcome }}</p>
+      <p style="font-size:14.5px; color:#47535F; margin:0;">{{ t.caseNote }}</p>
+    </div>
+  </section>
+
+  <section id="how" style="background:#1B4573; padding:clamp(44px,5.5vw,88px) 24px;">
+    <div style="max-width:1240px; margin:0 auto;">
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 40px; color:#fff;">{{ t.howTitle }}</h2>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px;">
+        <sc-for list="{{ t.steps }}" as="s" hint-placeholder-count="5">
+          <div style="border-top:2px solid rgba(255,255,255,0.35); padding-top:22px;">
+            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:34px; color:#7C8899; line-height:1; margin-bottom:14px;">{{ s.n }}</div>
+            <h3 style="font-size:20px; font-weight:700; margin:0 0 10px; color:#fff;">{{ s.title }}</h3>
+            <p style="font-size:17px; color:rgba(255,255,255,0.85); margin:0; text-wrap:pretty;">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap; align-items:start;">
+      <div style="flex:1 1 380px; min-width:290px;">
+        <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); color:#14273C; margin:0 0 20px; text-wrap:pretty;">{{ t.diffTitle }}</h2>
+        <p style="font-size:clamp(19px,1.9vw,24px); color:#2D3A48; margin:0 0 24px; max-width:44ch; text-wrap:pretty;">{{ t.diffLead }}</p>
+        <p style="font-size:18px; color:#1C2836; margin:0; max-width:46ch; border-inline-start:2px solid #7C8899; padding-inline-start:16px; text-wrap:pretty;">{{ t.diffClose }}</p>
+      </div>
+      <div style="flex:1 1 420px; min-width:290px; display:flex; flex-direction:column;">
+        <sc-for list="{{ t.diffPoints }}" as="d" hint-placeholder-count="4">
+          <div style="border-top:1px solid #D3DCE5; padding:16px 0 18px;">
+            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:clamp(18px,1.6vw,21px); color:#205080; margin-bottom:4px;">{{ d.title }}</div>
+            <p style="font-size:16.5px; color:#3A4653; margin:0; line-height:1.6; text-wrap:pretty;">{{ d.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="background:#F5F8FA; padding:clamp(44px,5.5vw,88px) 24px; border-block:1px solid #E4EAF1;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,72px); flex-wrap:wrap; align-items:start;">
+      <div style="flex:1 1 320px; min-width:270px; max-width:420px; margin:0 auto;">
+        <div style="border:1px solid #DCE3EB; border-radius:2px; padding:10px; background:#fff; max-width:388px; margin-inline:auto;">
+          <image-slot id="hana-portrait" src="assets/hana-portrait.jpg" shape="rounded" radius="4" style="width:100%; aspect-ratio:4/5;" placeholder="{{ t.altPortrait }}"></image-slot>
+          <div style="padding:12px 4px 4px; font-size:14.5px; color:#47535F; line-height:1.5; text-wrap:pretty;">{{ t.portraitCaption }}</div>
+        </div>
+      </div>
+      <div style="flex:1 1 460px; min-width:290px;">
+        <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,2.6vw,36px); margin:0 0 4px; color:#14273C;">{{ t.nameNatural }}</h2>
+        <div style="font-size:19px; color:#205080; font-weight:600;">{{ t.role }}</div>
+        <div style="font-size:15px; color:#3A4653; margin-top:4px;">{{ t.cpa }}</div>
+        <div style="width:48px; height:1px; background:#7C8899; margin:24px 0;"></div>
+        <h3 style="font-size:23px; font-weight:700; margin:0 0 18px; color:#14273C;">{{ t.aboutHead }}</h3>
+        <p style="font-size:18px; color:#3A4653; margin:0 0 16px; text-wrap:pretty;">{{ t.aboutP1 }}</p>
+        <p style="font-size:18px; color:#3A4653; margin:0 0 16px; text-wrap:pretty;">{{ t.aboutP2 }}</p>
+        <p style="font-size:18px; color:#3A4653; margin:0; text-wrap:pretty;">{{ t.aboutP3 }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap;">
+      <div style="flex:1 1 380px; min-width:290px;">
+        <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 18px; color:#14273C;">{{ t.whoTitle }}</h2>
+        <p style="font-size:19px; color:#3A4653; margin:0; max-width:56ch; text-wrap:pretty;">{{ t.whoBody }}</p>
+      </div>
+      <div style="flex:1 1 340px; min-width:280px; display:flex; flex-direction:column; align-content:start;">
+        <sc-for list="{{ t.whoCards }}" as="w" hint-placeholder-count="4">
+          <div style="border-top:1px solid #D3DCE5; padding:18px 0; font-size:18px; font-weight:600; color:#1C2836; text-wrap:pretty;">{{ w }}</div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="background:#F5F8FA; padding:clamp(44px,5.5vw,88px) 24px; border-block:1px solid #E4EAF1;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,4vw,56px); flex-wrap:wrap; align-items:start;">
+    <div style="flex:1 1 540px; min-width:290px;">
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 32px; color:#14273C;">{{ t.faqTitle }}</h2>
+      <div style="display:flex; flex-direction:column;">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="8">
+          <div style="border-top:1px solid #D3DCE5;">
+            <button onClick="{{ f.toggle }}" style="width:100%; background:none; border:0; padding:20px 0; display:flex; gap:18px; align-items:center; cursor:pointer; text-align:start; font-size:19px; font-weight:600; color:#14273C; line-height:1.5;">
+              <span style="flex:1;">{{ f.q }}</span>
+              <span style="color:#205080; font-size:24px; font-weight:400; line-height:1;">{{ f.sign }}</span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:0 0 22px; font-size:18px; color:#3A4653; max-width:70ch; text-wrap:pretty;">{{ f.a }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section id="links" style="background:#EDF1F6; padding:clamp(40px,5vw,76px) 24px; border-bottom:1px solid #DAE1EA;">
+    <div style="max-width:1240px; margin:0 auto;">
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(24px,2.7vw,36px); margin:0 0 10px; color:#1C2836;">{{ t.linksTitle }}</h2>
+      <p style="font-size:18px; color:#3A4653; margin:0 0 32px; max-width:66ch; text-wrap:pretty;">{{ t.linksSub }}</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:0 clamp(28px,4vw,52px);">
+        <sc-for list="{{ t.links }}" as="l" hint-placeholder-count="4">
+          <div style="border-top:1px solid #C2CFDD; padding:18px 0 20px; display:flex; flex-direction:column; gap:7px;">
+            <span style="font-size:12.5px; letter-spacing:0.07em; color:#3A4653;">{{ t.officialTag }}</span>
+            <h3 style="font-size:18.5px; font-weight:700; margin:4px 0 0; color:#1C2836; line-height:1.4; text-wrap:pretty;">{{ l.title }}</h3>
+            <p style="font-size:16px; color:#3A4653; margin:0; line-height:1.6; text-wrap:pretty;">{{ l.body }}</p>
+            <a href="{{ l.href }}" target="_blank" rel="noopener noreferrer" style="margin-top:auto; padding-top:12px; font-size:16px; font-weight:600; color:#205080;">{{ l.cta }} ↗</a>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:baseline; margin-top:24px;">
+        
+        <p style="font-size:15px; color:#47535F; margin:0; max-width:70ch; text-wrap:pretty;">{{ t.linksNote }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background:#16293D; padding:clamp(44px,5.5vw,88px) 24px;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap; align-items:start;">
+      <div style="flex:1 1 420px; min-width:290px;">
+        <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 18px; color:#fff; text-wrap:pretty;">{{ t.finalTitle }}</h2>
+        <p style="font-size:19px; color:rgba(255,255,255,0.82); margin:0 0 20px; max-width:56ch; text-wrap:pretty;">{{ t.finalBody }}</p>
+        <p style="font-size:18px; color:#B9C2CC; margin:0 0 12px; border-inline-start:2px solid #7C8899; padding-inline-start:16px;">{{ t.finalHighlight }}</p>
+        
+        <div style="display:flex; gap:14px; flex-wrap:wrap;">
+          <a href="#form" style="background:#fff; color:#205080; padding:19px 30px; border-radius:3px; font-size:19px; font-weight:700;" style-hover="background:#EDF1F6; color:#123255; text-decoration:none;">{{ t.finalCta }}</a>
+          <a href="{{ waLink }}" style="border:1.5px solid rgba(255,255,255,0.5); color:#fff; padding:18px 28px; border-radius:3px; font-size:18px; font-weight:600;" style-hover="border-color:#fff; color:#fff; text-decoration:none;">WhatsApp</a>
+        </div>
+        <div style="margin-top:32px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.16); font-size:16px; color:rgba(255,255,255,0.7); display:flex; gap:12px; flex-wrap:wrap;">
+          <sc-for list="{{ t.trustStrip }}" as="s" hint-placeholder-count="4">
+            <span>{{ s }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div id="form" style="flex:1 1 380px; min-width:290px; background:#fff; border-radius:2px; padding:clamp(24px,3vw,36px);">
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:24px 0; text-align:center;">
+            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:26px; color:#205080; margin-bottom:10px;">{{ t.thanksTitle }}</div>
+            <p style="font-size:18px; color:#3A4653; margin:0 0 14px; text-wrap:pretty;">{{ t.thanksBody }}</p>
+            <p style="font-size:16px; color:#47535F; margin:0;">{{ t.thanksNote }}</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <form onSubmit="{{ submit }}" style="display:flex; flex-direction:column; gap:18px;">
+            <input type="hidden" name="_subject" value="{{ mailSubject }}">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="שפת האתר" value="{{ langName }}">
+            <input type="text" name="_honey" value="" tabIndex="-1" autoComplete="off" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;">
+            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fName }}
+              <input type="text" name="{{ t.fName }}" required="required" autoComplete="name" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fPhone }}
+              <input type="tel" name="{{ t.fPhone }}" required="required" autoComplete="tel" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fEmail }}
+              <input type="email" name="{{ t.fEmail }}" autoComplete="email" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
+            </label>
+            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fLang }}
+              <select name="{{ t.fLang }}" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
+                <sc-for list="{{ langOptions }}" as="o" hint-placeholder-count="2">
+                  <option>{{ o }}</option>
+                </sc-for>
+              </select>
+            </label>
+            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fNote }}
+              <textarea rows="3" name="{{ t.fNote }}" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE; resize:vertical;"></textarea>
+            </label>
+            <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px solid #C9805F; background:#FBF2EE; border-radius:3px; padding:14px 16px; font-size:16px; color:#7A3B22;">{{ t.errBody }} <a href="{{ mailtoLink }}" style="color:#7A3B22; text-decoration:underline; font-weight:600;">{{ t.errLink }}</a></div>
+            </sc-if>
+            <button type="submit" disabled="{{ sending }}" style="{{ submitBtnStyle }}" style-hover="background:#123255;">{{ submitLabel }}</button>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#101E2C; padding:48px 24px {{ footerPad }}; color:rgba(255,255,255,0.72);">
+    <div style="max-width:1240px; margin:0 auto; display:flex; flex-direction:column; gap:13px;">
+      <img src="assets/logo-white.png" alt="{{ t.altLogo }}" style="height:56px; width:auto; align-self:flex-start; display:block; margin-bottom:6px;" />
+      <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:22px; color:#fff;">{{ t.footerName }}</div>
+      <div style="font-size:17px;">{{ t.footerLine }}</div>
+      <div style="display:flex; gap:20px; flex-wrap:wrap; font-size:16px; padding-top:6px;">
+        <a href="#" style="color:rgba(255,255,255,0.72);">{{ t.fl1 }}</a>
+        <a href="#" style="color:rgba(255,255,255,0.72);">{{ t.fl2 }}</a>
+        <a href="#contact" style="color:rgba(255,255,255,0.72);">{{ t.fl3 }}</a>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,0.14); margin-top:14px; padding-top:20px; font-size:15px; color:rgba(255,255,255,0.5); max-width:85ch; text-wrap:pretty;">{{ t.disclaimer }}</div>
+    </div>
+  </footer>
+
+  <div style="{{ stickyBar }}">
+    <a href="#contact" style="flex:1; background:#1B4573; color:#fff; padding:17px; border-radius:3px; text-align:center; font-size:17px; font-weight:700;">{{ t.stickyCall }}</a>
+    <a href="{{ waLink }}" style="flex:1; border:1.5px solid #205080; color:#205080; padding:16px; border-radius:3px; text-align:center; font-size:17px; font-weight:600;">WhatsApp</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;972544866718&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;phoneNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;054-486-6718&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;inboxEmail&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;FINKEL.HANA@GMAIL.COM&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;resourcesUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#205080&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#205080&quot;,&quot;#1B4573&quot;,&quot;#2C5A7D&quot;,&quot;#4C5D6B&quot;],&quot;section&quot;:&quot;Brand&quot;},&quot;showMobileBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+const HE = {
+  meta: "תכנון פרישה אישי | חנה פינקלשטיין, מתכננת פרישה מוסמכת",
+  metaDesc: "תכנון פרישה אישי שמחבר פנסיה, פיצויים, מס, קיבוע זכויות וביטוח לאומי לתמונה אחת ברורה. שיחת התאמה ללא עלות וללא התחייבות. עברית ורוסית.",
+  name: "חנה פינקלשטיין",
+  nameNatural: "חנה פינקלשטיין",
+  role: "מתכננת פרישה מוסמכת",
+  cpa: "רואת חשבון (רו״ח)",
+  navAxis: "לוח זמנים", nav1: "מה תקבלו", nav2: "איך זה עובד", nav3: "אודות", navLinks: "מידע שימושי", nav4: "שאלות נפוצות", nav5: "צור קשר",
+  ctaHeader: "לתיאום שיחת התאמה",
+  heroEyebrow: "תכנון פרישה",
+  heroTitle: "מתקרבים לפרישה? זה הזמן לראות את התמונה המלאה.",
+  heroSub: "תכנון פרישה אישי שמחבר את הפנסיה, הפיצויים, המס, קיבוע הזכויות וביטוח לאומי — לתמונה אחת ברורה.",
+  heroNote: "כדי להבין מה צפוי לכם בפרישה ומה המשמעות הכספית של האפשרויות השונות.",
+  ctaHero: "לתיאום שיחת התאמה ללא עלות",
+  ctaWhats: "הודעה ב־WhatsApp",
+  ctaMicro: "ללא עלות וללא התחייבות",
+  trust1: "שירות בעברית וברוסית", trust2: "Zoom וטלפון בכל הארץ", trust3: "פגישות פרונטליות באזור רחובות והסביבה",
+  altLogo: "HF Services — חנה פינקלשטיין",
+  altWorkspace: "כאן יופיע צילום סביבת העבודה — מסמכים ודוחות על שולחן באור יום, יחס 4:3. עדיף אור חלון רך ורקע נקי.",
+  workspaceCaption: "תכנון פרישה מתחיל בקריאה של המסמכים שכבר יש לכם — דוחות הקרנות, הפוליסות והטפסים.",
+  altPortrait: "חנה פינקלשטיין, רואת חשבון ומתכננת פרישה",
+  portraitCaption: "חנה פינקלשטיין, רואת חשבון ומתכננת פרישה מוסמכת.",
+  heroPortraitRole: "רואת חשבון ומתכננת פרישה מוסמכת · עברית ורוסית",
+  callUs: "לשיחה ישירה:",
+  textSize: "גודל טקסט",
+  fsSmall: "גודל טקסט רגיל", fsMed: "טקסט גדול", fsLarge: "טקסט גדול מאוד",
+  caseTag: "מתוך העבודה",
+  caseTitle: "מה בדיקה מסודרת מוצאת",
+  caseBody: "בן 64, שכיר 31 שנה, הגיע כדי לבדוק אם כדאי לפרוש בסוף השנה. במיפוי נמצאו שתי קרנות לא פעילות משנות התשעים שלא נכללו בחישוב הקצבה שהוצג לו, וביטוח מנהלים עם מקדם המרה מוטב שהיה מאבד את יתרונו במשיכה חד־פעמית.",
+  caseOutcome: "ההשוואה בין שתי חלופות הפרישה שנבדקו הראתה פער של 780 ₪ בקצבה החודשית — לפני שנעשתה פעולה אחת.",
+  caseNote: "פרטים מזהים שונו לשמירה על פרטיות.",
+  axisTitle: "מה קורה, ומתי",
+  axisSub: "לכל גיל יש החלטות משלו. זה סדר הזמנים שממנו מתחילים לתכנן.",
+  axis: [
+    { age: "60", kicker: "משיכת פיצויים", body: "משיכה של כספי פיצויים בשלב הזה עשויה להקטין את הפטור ממס שיהיה זמין לקצבה בעתיד." },
+    { age: "62–65", kicker: "גיל פרישה לאישה", body: "נקבע לפי שנת הלידה ועולה בהדרגה. מגיל זה נבדקת הזכאות לקצבת אזרח ותיק." },
+    { age: "67", kicker: "גיל פרישה לגבר", body: "מועד הזכאות לקצבת אזרח ותיק, ונקודת המוצא לבחינת קיבוע זכויות מול רשות המסים." },
+    { age: "67–70", kicker: "מבחן הכנסות", body: "בתקופה הזו הכנסה מעבודה עשויה להשפיע על גובה הקצבה מביטוח לאומי." },
+    { age: "70", kicker: "ללא מבחן הכנסות", body: "הקצבה משולמת ללא תלות בהכנסה, ובגין כל שנת דחייה נוספת ניתנת תוספת של 5%." }
+  ],
+  axisNote: "הגילאים מובאים באופן כללי. גיל הפרישה לאישה נקבע לפי שנת הלידה, והזכאויות נבדקות באופן אישי.",
+  s1Title: "פרישה היא הרבה יותר מהשאלה \u201cכמה פנסיה אקבל?\u201d",
+  s1Sub: "במועד הפרישה נפגשים כמה נושאים שמשפיעים זה על זה. החלטה בנושא אחד יכולה להשפיע על המס, הקצבה, הפיצויים והכספים שיישארו בעתיד.",
+  cards: [
+    { n: "01", title: "הפנסיה החודשית", body: "כמה צפוי להתקבל מקרנות הפנסיה, ביטוחי המנהלים ומקורות נוספים." },
+    { n: "02", title: "פיצויים וכספים חד־פעמיים", body: "אילו כספים קיימים ומה האפשרויות שעומדות בפניכם." },
+    { n: "03", title: "מיסוי בפרישה", body: "בחינת המס על קצבאות, פיצויים ומשיכות חד־פעמיות." },
+    { n: "04", title: "קיבוע זכויות", body: "כיצד לנצל את הפטור ממס — על הקצבה החודשית ועל סכומים חד־פעמיים." },
+    { n: "05", title: "ביטוח לאומי", body: "בדיקת הזכאות לקצבת אזרח ותיק והעיתוי האפשרי לקבלתה." },
+    { n: "06", title: "בן/בת זוג והורשה", body: "כיצד בחירת מסלול הקצבה משפיעה על ההכנסה המשפחתית ועל הכספים שיישארו לשאירים." }
+  ],
+  s2Title: "בסיום התהליך תהיה לכם תמונת פרישה מסודרת",
+  s2Sub: "לא עוד ערימה של מסמכים ומספרים — אלא ריכוז ברור של מה שיש, מה צפוי ומה המשמעות של כל אפשרות.",
+  deliverables: [
+    { title: "מפת מקורות הכנסה", body: "מה צפוי להתקבל מכל מקור ובאיזה מועד." },
+    { title: "השוואת חלופות במספרים", body: "כיצד נראות האפשרויות מבחינת קצבה, סכומים חד־פעמיים ומיסוי." },
+    { title: "תמונת מס בפרישה", body: "אילו נושאי מס יש להסדיר, ומה ההשפעה האפשרית על ההכנסה נטו." },
+    { title: "סיכום מסודר", body: "ריכוז הנתונים, החלופות והנקודות לביצוע במקום אחד." }
+  ],
+  howTitle: "איך זה עובד?",
+  steps: [
+    { n: "1", title: "שיחת התאמה", body: "שיחה קצרה להבנת המצב, הצרכים ומטרת התכנון." },
+    { n: "2", title: "איסוף מסמכים", body: "רשימה מסודרת של המסמכים והנתונים הנדרשים." },
+    { n: "3", title: "מיפוי וחישוב", body: "ריכוז הקרנות, הפוליסות, הקצבאות והיבטי המס במקום אחד." },
+    { n: "4", title: "השוואת חלופות", body: "האפשרויות השונות והמשמעות הכספית של כל אחת." },
+    { n: "5", title: "סיכום וליווי", body: "מסמך סיכום מסודר, וליווי בהמשך בהתאם לשירות שנבחר." }
+  ],
+  diffTitle: "לא מתחילים מההחלטה. מתחילים מהתמונה המלאה.",
+  diffLead: "תכנון פרישה מתחיל בחיבור כל הנתונים — ורק אחר כך בבחירת הדרך.",
+  diffPoints: [
+    { title: "מה כבר נצבר", body: "פנסיה, ביטוחי מנהלים, קופות גמל, פיצויים וחסכונות רלוונטיים." },
+    { title: "איזו הכנסה צפויה בפרישה", body: "כמה צפוי להתקבל בכל חודש, מאילו מקורות ובאיזה מועד." },
+    { title: "אילו החלטות עומדות על הפרק", body: "קצבה, פיצויים, משיכות חד־פעמיות, קיבוע זכויות ומועד הפרישה." },
+    { title: "איך כל החלטה תשפיע עליכם", body: "על ההכנסה נטו, המס, הכספים שיישארו זמינים ועל בן או בת הזוג." }
+  ],
+  diffClose: "כשכל הנתונים נמצאים מול העיניים, הרבה יותר קל להבין מה נכון לעשות — ומה עדיף לא לעשות.",
+  aboutHead: "תכנון אישי, מסודר ובגובה העיניים",
+  aboutP1: "אני חנה פינקלשטיין, מתכננת פרישה מוסמכת ורואת חשבון. במשך שנים אני עוסקת בעולם הכספים והחשבונאות, וכיום אני משלבת את הידע הזה בתכנון פרישה שמחבר בין הנתונים הפנסיוניים, המס והמשמעות הכלכלית למשפחה.",
+  aboutP2: "בתהליך אני מרכזת מידע שמגיע ממספר גופים, קרנות, פוליסות, דוחות וטפסים, ומציגה אותו כתמונה אחת ברורה — כדי שתבינו את האפשרויות שלפניכם ואת המשמעות הכספית של כל החלטה.",
+  aboutP3: "השירות ניתן בעברית וברוסית, ב־Zoom ובטלפון בכל הארץ, ובפגישות פרונטליות באזור רחובות והסביבה.",
+  whoTitle: "למי מתאים תכנון פרישה?",
+  whoBody: "השירות מתאים לשכירים המתקרבים לגיל הפרישה, ולמי שכבר מקבל קצבה אך טרם השלים את הטיפול במיסוי. גם לבעלי מספר קרנות או פוליסות, למי שצפוי לקבל פיצויים או מענקי פרישה, ולמי שרוצה להבין מראש כיצד תיראה ההכנסה המשפחתית לאחר הפרישה.",
+  whoCards: ["מתקרבים לפרישה", "כבר מקבלים פנסיה", "יש מספר קרנות ופוליסות", "רוצים לעשות סדר לפני החלטות"],
+  linksTitle: "קישורים שימושיים",
+  linksSub: "מידע רשמי שיכול לעזור לכם להתכונן לפרישה — ישירות באתרי הגופים הרלוונטיים.",
+  officialTag: "אתר רשמי",
+  links: [
+    { title: "קצבת אזרח ותיק", body: "תנאי הזכאות, גיל הזכאות, מבחן הכנסות וסכומי הקצבה — באתר ביטוח לאומי.", cta: "לאתר ביטוח לאומי", href: "https://www.btl.gov.il/benefits/old_age/Pages/default.aspx" },
+    { title: "מחשבון זכאות לקצבת אזרח ותיק", body: "בדיקה אישית ראשונית של הזכאות וגובה הקצבה לפי הנתונים שלכם.", cta: "למחשבון", href: "https://www.btl.gov.il/benefits/old_age/Pages/BdikatZacautZikna.aspx" },
+    { title: "קיבוע זכויות — טופס 161ד", body: "מי זכאי, אילו מסמכים נדרשים וכיצד מגישים את הבקשה לפטור ממס על הקצבה.", cta: "לרשות המסים", href: "https://www.gov.il/he/service/itc-request-for-fixed-rights-at-retirement-age" },
+    { title: "מדריך פרישה וטופס 161", body: "מדריך רשות המסים לקיבוע זכויות ולחלופות המיסוי של מענקי הפרישה.", cta: "למדריך המלא", href: "https://www.gov.il/he/pages/2026-filling-out-form-161d" }
+  ],
+  linksAll: "לכל הקישורים והמדריכים",
+  linksNote: "הקישורים מפנים לאתרים רשמיים ומתעדכנים בהתאם למידע שמפורסם על ידי הגופים עצמם.",
+  faqTitle: "שאלות נפוצות",
+  faq: [
+    { q: "מתי כדאי להתחיל תכנון פרישה?", a: "כדאי להתחיל לפני משיכת פיצויים, התחלת קצבה, קיבוע זכויות או קבלת החלטות משמעותיות לגבי הכספים הפנסיוניים." },
+    { q: "האם שיחת ההתאמה באמת ללא עלות?", a: "כן, וללא צורך בתשלום דרך האתר. מטרת השיחה היא להבין את המצב ואת הצורך." },
+    { q: "מה קורה אחרי שיחת ההתאמה?", a: "אם השירות מתאים לצורך שלכם, יוצגו היקף העבודה והעלות מראש — לפני תחילת התהליך. שירותים בתשלום נקבעים בנפרד לאחר השיחה." },
+    { q: "האם צריך להכין את כל המסמכים לפני השיחה הראשונה?", a: "לא. בשיחת ההתאמה נבין את המצב, ולאחר מכן תקבלו רשימה מסודרת של המסמכים והנתונים הנדרשים." },
+    { q: "כבר התחלתי לקבל פנסיה. האם עדיין אפשר לבצע בדיקה?", a: "כן. גם לאחר תחילת הקצבה אפשר לבחון את המצב בהתאם לפעולות שכבר בוצעו — ולבדוק אם נותרו נושאים פתוחים, למשל קיבוע זכויות, תיאום מס או זכאות בביטוח לאומי." },
+    { q: "מה זה קיבוע זכויות?", a: "בהגיעכם לגיל הזכאות אתם קובעים כיצד לנצל את הפטור ממס שמגיע לכם — כקצבה חודשית פטורה, כסכום חד־פעמי, או כשילוב של השניים. להחלטה הזו יש השפעה על המס שתשלמו בשנים הבאות." },
+    { q: "יש לי ביטוח מנהלים ישן. האם הוא נבדק במסגרת התהליך?", a: "כן. בפוליסות ישנות חשוב במיוחד לבדוק את תנאי הפוליסה, מסלולי הקצבה והזכויות הקיימות לפני ביצוע פעולה." },
+    { q: "האם השירות ניתן גם ברוסית?", a: "כן. כל התהליך ניתן לביצוע בעברית או ברוסית." }
+  ],
+  finalTitle: "רוצים להבין איך יכולה להיראות הפרישה שלכם?",
+  finalBody: "בשיחת התאמה קצרה נבדוק את המצב שלכם, נבין אילו נתונים קיימים ומה נדרש כדי לבנות תמונת פרישה מסודרת.",
+  finalHighlight: "שיחת התאמה ללא עלות וללא התחייבות",
+  priceNote: "אם השירות מתאים לצורך שלכם, היקף העבודה והעלות יוצגו מראש — לפני תחילת התהליך.",
+  finalCta: "לתיאום שיחה",
+  trustStrip: ["תהליך אישי", "הסברים בגובה העיניים", "עברית ורוסית", "שיחת התאמה ללא התחייבות"],
+  fName: "שם מלא", fPhone: "טלפון", fEmail: "דוא״ל — לא חובה", fLang: "שפה מועדפת", fNote: "הערה קצרה — לא חובה",
+  fSubmit: "אשמח לחזור אליכם",
+  fSending: "שולח…",
+  mailSubject: "פנייה חדשה מהאתר — ייעוץ פרישה",
+  errBody: "השליחה לא הושלמה. אפשר לנסות שוב, או לשלוח את הפרטים ישירות במייל:",
+  errLink: "פתיחת מייל",
+  thanksTitle: "תודה, הפרטים התקבלו",
+  thanksBody: "אחזור אליכם בתוך יום עסקים אחד לתיאום שיחת ההתאמה.",
+  thanksNote: "אם נוח לכם מיידית — אפשר גם להתקשר או לכתוב ב־WhatsApp.",
+  footerName: "חנה פינקלשטיין | מתכננת פרישה מוסמכת • רואת חשבון",
+  footerLine: "שירות בעברית וברוסית | Zoom | טלפון | אזור רחובות והסביבה",
+  fl1: "מדיניות פרטיות", fl2: "הצהרת נגישות", fl3: "צור קשר",
+  disclaimer: "המידע באתר הוא מידע כללי ואינו מהווה תחליף לבדיקה אישית של נתוני הפרישה, תנאי המוצרים והיבטי המס הרלוונטיים לכל אדם.",
+  stickyCall: "שיחת התאמה"
+};
+
+const RU = {
+  meta: "Пенсионное планирование | Хана Финкельштейн",
+  metaDesc: "Пенсионное планирование в Израиле: пенсия, выходное пособие, налоги, кибуа зхуйот и Битуах Леуми — в одном расчете. Первая консультация бесплатно, без обязательств. На русском и на иврите.",
+  name: "Хана Финкельштейн",
+  nameNatural: "Хана Финкельштейн",
+  role: "Специалист по пенсионному планированию",
+  cpa: "Рое хешбон (аудитор-бухгалтер)",
+  navAxis: "Что и когда", nav1: "Что вы получите", nav2: "Как это работает", nav3: "Обо мне", navLinks: "Полезное", nav4: "Вопросы и ответы", nav5: "Контакты",
+  ctaHeader: "Записаться на консультацию",
+  heroEyebrow: "Пенсионное планирование",
+  heroTitle: "Выход на пенсию уже близко? Самое время увидеть полную картину.",
+  heroSub: "Пенсия, выходное пособие, налоги, кибуа зхуйот и Битуах Леуми — собранные в один расчет, а не разбросанные по семи отчетам.",
+  heroNote: "Чтобы вы заранее знали, сколько будет на руки — и во что обойдется каждый из возможных вариантов.",
+  ctaHero: "Первая консультация — бесплатно",
+  ctaWhats: "Написать в WhatsApp",
+  ctaMicro: "Бесплатно, без обязательств",
+  trust1: "По-русски и на иврите", trust2: "Zoom и телефон — по всему Израилю", trust3: "Личные встречи в районе Реховота",
+  altLogo: "HF Services — Хана Финкельштейн",
+  altWorkspace: "Здесь будет фотография рабочего места — документы и отчеты на столе при дневном свете, формат 3:2. Лучше мягкий свет от окна и чистый фон.",
+  workspaceCaption: "Планирование начинается с тех документов, которые у вас уже есть: отчетов фондов, полисов и форм.",
+  altPortrait: "Хана Финкельштейн, рое хешбон и специалист по пенсионному планированию",
+  portraitCaption: "Хана Финкельштейн, рое хешбон (аудитор-бухгалтер) и специалист по пенсионному планированию.",
+  heroPortraitRole: "Рое хешбон и специалист по пенсионному планированию · русский и иврит",
+  callUs: "Позвонить:",
+  textSize: "Размер текста",
+  fsSmall: "Обычный размер текста", fsMed: "Крупный текст", fsLarge: "Очень крупный текст",
+  caseTag: "Из практики",
+  caseTitle: "Что находит внимательная проверка",
+  caseBody: "Мужчина, 64 года, 31 год работы по найму. Обратился, чтобы выяснить, стоит ли выходить на пенсию в конце года. При проверке нашлись два неактивных пенсионных фонда 1990-х годов, которых вообще не было в расчете, показанном ему раньше, и старый полис с выгодным пенсионным коэффициентом — при получении денег одной суммой он был бы потерян.",
+  caseOutcome: "Разница между двумя вариантами выхода — 780 ₪ в месяц. И все это выяснилось до того, как он что-либо предпринял.",
+  caseNote: "Подробности изменены — из соображений конфиденциальности.",
+  axisTitle: "Что происходит и когда",
+  axisSub: "У каждого возраста свои решения. Планирование начинается с этих дат.",
+  axis: [
+    { age: "60", kicker: "Выходное пособие", body: "Снимете сейчас — и налоговое освобождение, которое понадобится потом для самой пенсии, может уменьшиться." },
+    { age: "62–65", kicker: "Пенсионный возраст, женщины", body: "Зависит от года рождения и постепенно повышается. С этого возраста проверяют право на пособие по старости." },
+    { age: "67", kicker: "Пенсионный возраст, мужчины", body: "Право на пособие по старости — и точка, от которой считают кибуа зхуйот." },
+    { age: "67–70", kicker: "Проверка доходов", body: "В эти годы заработок может уменьшить пособие от Битуах Леуми." },
+    { age: "70", kicker: "Без проверки доходов", body: "Пособие платят независимо от заработка, и за каждый год отсрочки добавляют 5%." }
+  ],
+  axisNote: "Возрасты даны в общем виде: пенсионный возраст для женщин зависит от года рождения, а каждое право проверяется отдельно.",
+  s1Title: "Пенсия — это не только вопрос «сколько я буду получать»",
+  s1Sub: "При выходе на пенсию сразу несколько тем влияют друг на друга. Решение по одной меняет налоги, размер выплаты, выходное пособие и то, сколько средств останется дальше.",
+  cards: [
+    { n: "01", title: "Ежемесячная пенсия", body: "Сколько будет приходить от пенсионных фондов, полисов (битуах менаалим) и остальных источников." },
+    { n: "02", title: "Выходное пособие и разовые суммы", body: "Какие средства есть и какие варианты открыты именно вам." },
+    { n: "03", title: "Налоги при выходе на пенсию", body: "Налог на пенсионные выплаты, на пособие и на деньги, снятые одной суммой." },
+    { n: "04", title: "Кибуа зхуйот", body: "Как использовать налоговое освобождение: ежемесячной выплатой, разовой суммой или тем и другим вместе." },
+    { n: "05", title: "Битуах Леуми", body: "Положено ли вам пособие по старости и когда его выгоднее начать получать." },
+    { n: "06", title: "Супруг(а) и наследование", body: "Как выбранный вариант выплат отразится на доходе семьи и на том, что останется близким." }
+  ],
+  s2Title: "В конце вы получаете не папку, а ответ",
+  s2Sub: "Что есть сегодня, сколько будет на руки и во что обойдется каждый вариант — на нескольких страницах, которые можно спокойно перечитать.",
+  deliverables: [
+    { title: "Откуда пойдут деньги", body: "Какие суммы, из каких фондов и полисов и с какого месяца." },
+    { title: "Варианты рядом, в цифрах", body: "По каждому — сумма на руки, разовая выплата и налог." },
+    { title: "Налоговая часть", body: "Что нужно оформить, в какие сроки и что это дает." },
+    { title: "Итоговый документ", body: "Расчеты, варианты и список действий — в одном файле." }
+  ],
+  howTitle: "Как это работает?",
+  steps: [
+    { n: "1", title: "Первая консультация", body: "Короткий разговор: в какой вы точке и чего ждете от пенсии." },
+    { n: "2", title: "Сбор документов", body: "Вы получите точный список: что нужно и где это взять." },
+    { n: "3", title: "Анализ и расчет", body: "Свожу фонды, полисы, купот гемель, выплаты и налоги в один расчет." },
+    { n: "4", title: "Сравнение вариантов", body: "По каждому варианту — конкретные суммы, а не общие слова." },
+    { n: "5", title: "Итог и сопровождение", body: "Итоговый документ, а дальше — сопровождение в том объеме, который выберете." }
+  ],
+  diffTitle: "Не начинайте с решения. Начните с полной картины.",
+  diffLead: "Сначала — вся картина целиком. Выбор дальнейших действий возможен только после этого.",
+  diffPoints: [
+    { title: "Что уже накоплено", body: "Фонды, полисы, купот гемель, выходное пособие и остальные средства." },
+    { title: "Сколько будет на руки", body: "Какая сумма ежемесячно, из каких источников и с какого момента." },
+    { title: "Какие решения предстоят", body: "Пенсия, выходное пособие, разовые суммы, кибуа зхуйот и сам момент выхода." },
+    { title: "На что повлияет каждое решение", body: "На сумму на руки, на налог, на доступные деньги и на положение супруга или супруги." }
+  ],
+  diffClose: "Когда все собрано в одном месте, гораздо легче понять, что стоит делать — а чего лучше не делать.",
+  aboutHead: "По порядку, без спешки и понятным языком",
+  aboutP1: "Меня зовут Хана Финкельштейн. Я специалист по пенсионному планированию и рое хешбон (аудитор-бухгалтер). За годы работы в финансах и бухгалтерии я привыкла смотреть на пенсию сразу с трех сторон: пенсионные программы, налоги и то, что все это значит для семьи.",
+  aboutP2: "Данные приходят из разных фондов, полисов, отчетов и форм — я собираю их вместе и показываю так, чтобы вы видели свои варианты и понимали цену каждого решения.",
+  aboutP3: "Работаю на русском и на иврите: Zoom и телефон — по всему Израилю, личные встречи — в районе Реховота.",
+  whoTitle: "Кому подходит",
+  whoBody: "Если вы приближаетесь к пенсионному возрасту и хотите подготовиться заранее. Если уже получаете пенсию, а налоговые вопросы так и остались нерешенными. Если у вас несколько фондов и полисов и непонятно, что с ними делать. Или если вам предстоит выходное пособие и вы хотите заранее увидеть, каким будет доход семьи.",
+  whoCards: ["Скоро на пенсию", "Уже получаете пенсию", "Несколько фондов и полисов", "Хотите разобраться заранее"],
+  linksTitle: "Полезные ссылки",
+  linksSub: "Официальная информация, которая пригодится при подготовке к выходу на пенсию.",
+  officialTag: "Официальный сайт",
+  links: [
+    { title: "Пособие по старости", body: "Кому положено, с какого возраста и сколько — на русском сайте Битуах Леуми.", cta: "На сайт Битуах Леуми", href: "https://www.btl.gov.il/RussianHomePage/Benefits_ru/Vatikim_ru/Pages/default.aspx" },
+    { title: "Условия и проверка доходов", body: "Как заработок между пенсионным возрастом и 70 годами влияет на пособие.", cta: "К условиям", href: "https://www.btl.gov.il/RussianHomePage/Benefits_ru/Vatikim_ru/tnaeyZekaut_ru/Pages/default.aspx" },
+    { title: "Калькулятор пособия по старости", body: "Проверить право на пособие и рассчитать его размер по своим данным.", cta: "К калькулятору", href: "https://www.btl.gov.il/RussianHomePage/Calculators_ru/Pages/OldAge_S.aspx" },
+    { title: "Кибуа зхуйот и форма 161д", body: "На сайте Налогового управления — пока только на иврите.", cta: "К информации", href: "https://www.gov.il/he/pages/2026-filling-out-form-161d" }
+  ],
+  linksAll: "Все полезные материалы",
+  linksNote: "Все ссылки ведут на официальные государственные сайты.",
+  faqTitle: "Вопросы и ответы",
+  faq: [
+    { q: "Когда мне начинать?", a: "До того как снимете выходное пособие, начнете получать пенсию, оформите кибуа зхуйот или примете любое крупное решение о пенсионных деньгах. После этого выбор резко сужается." },
+    { q: "Первая консультация правда бесплатная?", a: "Да, и платить через сайт не нужно. Задача консультации — понять вашу ситуацию и решить, чем я могу помочь." },
+    { q: "Что будет после консультации?", a: "Если услуга вам подходит, объем работы и стоимость мы согласуем заранее — до начала." },
+    { q: "Нужно ли собирать документы заранее?", a: "Нет. Сначала разберем ситуацию, а список документов вы получите потом — с указанием, где что брать." },
+    { q: "Я уже получаю пенсию. Есть смысл проверять?", a: "Да. Даже после начала выплат видно, что уже сделано, и можно проверить, не осталось ли открытых вопросов: кибуа зхуйот, тиум мас или право на пособие в Битуах Леуми." },
+    { q: "Что такое кибуа зхуйот?", a: "Дойдя до пенсионного возраста, вы решаете, как использовать положенное вам налоговое освобождение: как необлагаемую ежемесячную выплату, как разовую сумму или как их сочетание. Это решение влияет на налоги все следующие годы." },
+    { q: "У меня старый битуах менаалим. Его тоже смотрят?", a: "Обязательно. В старых полисах условия и коэффициенты нередко заметно лучше сегодняшних — и потерять их можно одним неверным действием." },
+    { q: "Можно ли все на русском?", a: "Да. Консультация, документы и итоговый расчет — на русском или на иврите, как вам удобнее." }
+  ],
+  finalTitle: "Хотите увидеть, как сложится ваша пенсия?",
+  finalBody: "В короткой консультации разберем вашу ситуацию и определим, каких данных не хватает для полного расчета.",
+  finalHighlight: "Первая консультация — бесплатно, без обязательств",
+  priceNote: "Если услуга вам подходит, объем работы и стоимость мы согласуем заранее — до начала.",
+  finalCta: "Записаться на консультацию",
+  trustStrip: ["Индивидуально, по вашим данным", "Понятные объяснения", "Русский и иврит", "Без обязательств"],
+  fName: "Имя и фамилия", fPhone: "Телефон", fEmail: "Эл. почта (необязательно)", fLang: "Предпочтительный язык", fNote: "Кратко о вашей ситуации (необязательно)",
+  fSubmit: "Отправить заявку",
+  fSending: "Отправляем…",
+  mailSubject: "Новая заявка с сайта — консультация по выходу на пенсию",
+  errBody: "Заявка не отправилась. Попробуйте ещё раз или напишите напрямую:",
+  errLink: "Написать письмо",
+  thanksTitle: "Спасибо, заявка получена",
+  thanksBody: "Свяжусь с вами в течение одного рабочего дня, чтобы согласовать время консультации.",
+  thanksNote: "Если удобнее сразу — позвоните или напишите в WhatsApp.",
+  footerName: "Хана Финкельштейн | пенсионное планирование",
+  footerLine: "Русский и иврит | Zoom | телефон | район Реховота",
+  fl1: "Политика конфиденциальности", fl2: "Доступность сайта", fl3: "Контакты",
+  disclaimer: "Информация на сайте носит общий характер и не заменяет проверки ваших личных пенсионных данных, условий ваших программ и вашей налоговой ситуации.",
+  stickyCall: "Консультация"
+};
+
+class Component extends DCLogic {
+
+
+  state = { lang: "he", open: null, scrolled: false, vw: 1440, submitted: false, menuOpen: false, fontScale: 0, sending: false, sendError: false };
+
+  async sendForm(e) {
+    e.preventDefault();
+    if (this.state.sending) return;
+    const form = e.target;
+    const data = new FormData(form);
+    if (data.get("_honey")) { this.setState({ submitted: true }); return; }
+    data.delete("_honey");
+    this.setState({ sending: true, sendError: false });
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/" + (this.props.inboxEmail ?? "FINKEL.HANA@GMAIL.COM"), {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: data
+      });
+      if (!res.ok) throw new Error("http " + res.status);
+      this.setState({ sending: false, submitted: true });
+    } catch (err) {
+      this.setState({ sending: false, sendError: true });
+    }
+  }
+
+  setFs(i) {
+    this.setState({ fontScale: i });
+    try { localStorage.setItem("cf-font-scale", String(i)); } catch (e) {}
+    this.applyZoom(i);
+  }
+  applyZoom(i) {
+    try { document.body.style.zoom = [1, 1.15, 1.32][i] || 1; } catch (e) {}
+  }
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const s = window.scrollY > 40;
+      if (s !== this.state.scrolled) this.setState({ scrolled: s });
+    };
+    this._measure = () => {
+      const w = document.documentElement.clientWidth || window.innerWidth;
+      if (Math.abs(w - this.state.vw) > 8) this.setState({ vw: w, menuOpen: false });
+    };
+    this._onResize = () => {
+      if (this._raf) return;
+      this._raf = requestAnimationFrame(() => { this._raf = 0; this._measure(); });
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    window.addEventListener("resize", this._onResize);
+    this._measure();
+    this.syncHead();
+    try {
+      const saved = parseInt(localStorage.getItem("cf-font-scale") || "0", 10);
+      if (saved === 1 || saved === 2) { this.setState({ fontScale: saved }); this.applyZoom(saved); }
+    } catch (e) {}
+  }
+  componentDidUpdate(prev, prevState) {
+    if (!prevState || prevState.lang !== this.state.lang) this.syncHead();
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this._onScroll);
+    window.removeEventListener("resize", this._onResize);
+    if (this._raf) cancelAnimationFrame(this._raf);
+  }
+  syncHead() {
+    const t = this.state.lang === "ru" ? RU : HE;
+    try {
+      document.title = t.meta;
+      document.documentElement.lang = this.state.lang;
+      let m = document.querySelector('meta[name="description"]');
+      if (!m) { m = document.createElement("meta"); m.setAttribute("name", "description"); document.head.appendChild(m); }
+      m.setAttribute("content", t.metaDesc);
+    } catch (e) {}
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = lang === "ru" ? RU : HE;
+    const rtl = lang === "he";
+    const accent = this.props.accentColor ?? "#205080";
+    const narrow = this.state.vw < (rtl ? 1320 : 1700);
+    const langBtn = (on) =>
+      "border:0; cursor:pointer; padding:9px 14px; border-radius:3px; font-size:16px; font-weight:600; white-space:nowrap; background:" +
+      (on ? accent : "transparent") + "; color:" + (on ? "#fff" : "#4C5D6B") + ";";
+    const showSticky = (this.props.showMobileBar ?? true) && narrow;
+    const phoneRaw = this.props.phoneNumber ?? "054-486-6718";
+    const phoneDigits = phoneRaw.replace(/[^0-9]/g, "");
+    const fs = this.state.fontScale;
+    const fsBtn = (i, size) =>
+      "border:1px solid " + (fs === i ? "#1B4573" : "#C9D3DD") + "; background:" + (fs === i ? "#1B4573" : "#fff") +
+      "; color:" + (fs === i ? "#fff" : "#3A4653") + "; cursor:pointer; width:40px; height:36px; border-radius:3px; font-weight:700; line-height:1; padding:0; font-size:" + size + "px;";
+
+    return {
+      t,
+      dir: rtl ? "rtl" : "ltr",
+      telLink: "tel:+972" + (phoneDigits.charAt(0) === "0" ? phoneDigits.slice(1) : phoneDigits),
+      phoneDisplay: phoneRaw,
+      utilRowStyle: "max-width:1240px; margin:0 auto; display:flex; align-items:center; gap:10px; padding:7px " + (narrow ? "14px" : "22px") + ";",
+      callLabelStyle: narrow ? "display:none;" : "font-size:15.5px; color:#3A4653;",
+      fsLabelStyle: narrow ? "display:none;" : "font-size:15px; color:#3A4653;",
+      fs0Btn: fsBtn(0, 14), fs1Btn: fsBtn(1, 17), fs2Btn: fsBtn(2, 20),
+      logoStyle: "height:" + (narrow ? 38 : 48) + "px; width:auto; display:block; flex:none;",
+      setFs0: () => this.setFs(0), setFs1: () => this.setFs(1), setFs2: () => this.setFs(2),
+      isHe: rtl,
+      isRu: !rtl,
+      langOptions: rtl ? ["עברית", "Русский"] : ["Русский", "עברית"],
+      headerPad: this.state.scrolled ? "10px" : "16px",
+      headerRowStyle: "max-width:1240px; margin:0 auto; display:flex; align-items:center; transition:padding .25s ease; padding:" +
+        (this.state.scrolled ? "10px " : "16px ") + (narrow ? "14px" : "22px") + "; gap:" + (narrow ? "12px" : "22px") + ";",
+      brandNameStyle: "font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; color:#14273C; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:" + (narrow ? "17px" : "19px") + ";",
+      roleStyle: narrow ? "display:none;" : "font-size:13.5px; color:#3A4653;",
+      heLabel: narrow ? "עב" : "עברית",
+      ruLabel: narrow ? "RU" : "Русский",
+      heBtn: langBtn(rtl),
+      ruBtn: langBtn(!rtl),
+      setHe: () => this.setState({ lang: "he" }),
+      setRu: () => this.setState({ lang: "ru" }),
+      waLink: "https://wa.me/" + (this.props.whatsappNumber ?? "972544866718").replace(/[^0-9]/g, ""),
+      resourcesLink: this.props.resourcesUrl ?? "#",
+      navStyle: narrow ? "display:none;" : "display:flex; gap:20px; font-size:16px; color:#3A4653; white-space:nowrap;",
+      headerCtaStyle: narrow
+        ? "display:none;"
+        : "background:" + accent + "; color:#fff; padding:14px 20px; border-radius:3px; font-size:16.5px; font-weight:600; white-space:nowrap; flex:none;",
+      burgerStyle: narrow
+        ? "display:grid; place-items:center; width:46px; height:46px; flex:none; border:1px solid #DCE3EB; background:#F5F8FA; border-radius:3px; font-size:22px; color:#1C2836; cursor:pointer;"
+        : "display:none;",
+      mobileMenuStyle: (narrow && this.state.menuOpen)
+        ? "display:flex; flex-direction:column; gap:2px; padding:10px 22px 22px; border-top:1px solid #E4EAF1; background:#fff;"
+        : "display:none;",
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      faqs: t.faq.map((f, i) => ({
+        q: f.q, a: f.a,
+        open: this.state.open === i,
+        sign: this.state.open === i ? "−" : "+",
+        toggle: () => this.setState(s => ({ open: s.open === i ? null : i }))
+      })),
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      submit: (e) => this.sendForm(e),
+      sending: this.state.sending,
+      sendError: this.state.sendError,
+      submitLabel: this.state.sending ? t.fSending : t.fSubmit,
+      submitBtnStyle: "background:" + (this.state.sending ? "#4C5D6B" : "#1B4573") + "; color:#fff; border:0; border-radius:3px; padding:19px; font-size:19px; font-weight:700; cursor:" + (this.state.sending ? "wait" : "pointer") + ";",
+      mailSubject: t.mailSubject,
+      langName: this.state.lang === "ru" ? "רוסית" : "עברית",
+      mailtoLink: "mailto:" + (this.props.inboxEmail ?? "FINKEL.HANA@GMAIL.COM"),
+      footerPad: showSticky ? "110px" : "48px",
+      stickyBar: showSticky
+        ? "position:fixed; bottom:0; inset-inline:0; z-index:60; display:flex; gap:10px; padding:12px 14px; background:rgba(255,255,255,0.97); border-top:1px solid #DCE3EB; box-shadow:0 -10px 30px -20px rgba(0,0,0,0.3);"
+        : "display:none;"
+    };
+  }
+}
+</script>
+</body>
+</html>
