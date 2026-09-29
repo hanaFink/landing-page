@@ -328,6 +328,13 @@
             <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fNote }}
               <textarea rows="3" name="{{ t.fNote }}" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE; resize:vertical;"></textarea>
             </label>
+            <label style="display:flex; align-items:flex-start; gap:12px; font-size:16px; font-weight:600; line-height:1.45; color:#1C2836; cursor:pointer;">
+              <input type="checkbox" name="consent" required="required" onInvalid="{{ consentInvalid }}" onChange="{{ consentClear }}" style="width:22px; height:22px; margin-top:2px; flex:none; accent-color:#1B4573; cursor:pointer;">
+              <span>{{ t.fConsent }}</span>
+            </label>
+            <sc-if value="{{ sendActivate }}" hint-placeholder-val="{{ false }}">
+              <div style="border:1px solid #C9805F; background:#FBF2EE; border-radius:3px; padding:14px 16px; font-size:16px; color:#7A3B22;">{{ t.errActivate }}</div>
+            </sc-if>
             <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}">
               <div style="border:1px solid #C9805F; background:#FBF2EE; border-radius:3px; padding:14px 16px; font-size:16px; color:#7A3B22;">{{ t.errBody }} <a href="{{ mailtoLink }}" style="color:#7A3B22; text-decoration:underline; font-weight:600;">{{ t.errLink }}</a></div>
             </sc-if>
@@ -358,7 +365,7 @@
   </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;972544866718&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;phoneNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;054-486-6718&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;inboxEmail&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;FINKEL.HANA@GMAIL.COM&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;resourcesUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#205080&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#205080&quot;,&quot;#1B4573&quot;,&quot;#2C5A7D&quot;,&quot;#4C5D6B&quot;],&quot;section&quot;:&quot;Brand&quot;},&quot;showMobileBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;972544866718&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;phoneNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;054-486-6718&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;inboxEmail&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;finkel.hana@gmail.com&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;resourcesUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;#&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contact&quot;},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#205080&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#205080&quot;,&quot;#1B4573&quot;,&quot;#2C5A7D&quot;,&quot;#4C5D6B&quot;],&quot;section&quot;:&quot;Brand&quot;},&quot;showMobileBar&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
 const HE = {
   meta: "תכנון פרישה אישי | חנה פינקלשטיין, מתכננת פרישה מוסמכת",
   metaDesc: "תכנון פרישה אישי שמחבר פנסיה, פיצויים, מס, קיבוע זכויות וביטוח לאומי לתמונה אחת ברורה. שיחת התאמה ללא עלות וללא התחייבות. עברית ורוסית.",
@@ -471,9 +478,12 @@ const HE = {
   finalCta: "לתיאום שיחה",
   trustStrip: ["תהליך אישי", "הסברים בגובה העיניים", "עברית ורוסית", "שיחת התאמה ללא התחייבות"],
   fName: "שם מלא", fPhone: "טלפון", fEmail: "דוא״ל — לא חובה", fLang: "שפה מועדפת", fNote: "הערה קצרה — לא חובה",
+  fConsent: "אני מסכים/ה לעיבוד הנתונים האישיים שאני מוסר/ת בטופס זה",
+  fConsentNeed: "יש לאשר את עיבוד הנתונים האישיים",
   fSubmit: "אשמח לחזור אליכם",
   fSending: "שולח…",
   mailSubject: "פנייה חדשה מהאתר — ייעוץ פרישה",
+  errActivate: "הפנייה לא נשלחת עד לאישור חד־פעמי של התיבה finkel.hana@gmail.com. פתחו את המייל מ־FormSubmit עם הקישור Activate Form ולחצו עליו (גם בתיקיית הספאם). אחר כך הפניות יגיעו למייל.",
   errBody: "השליחה לא הושלמה. אפשר לנסות שוב, או לשלוח את הפרטים ישירות במייל:",
   errLink: "פתיחת מייל",
   thanksTitle: "תודה, הפרטים התקבלו",
@@ -598,9 +608,12 @@ const RU = {
   finalCta: "Записаться на консультацию",
   trustStrip: ["Индивидуально, по вашим данным", "Понятные объяснения", "Русский и иврит", "Без обязательств"],
   fName: "Имя и фамилия", fPhone: "Телефон", fEmail: "Эл. почта (необязательно)", fLang: "Предпочтительный язык", fNote: "Кратко о вашей ситуации (необязательно)",
+  fConsent: "Я соглашаюсь на обработку персональных данных, которые отправляю в этой форме",
+  fConsentNeed: "Подтвердите согласие на обработку персональных данных",
   fSubmit: "Отправить заявку",
   fSending: "Отправляем…",
   mailSubject: "Новая заявка с сайта — консультация по выходу на пенсию",
+  errActivate: "Заявка не уходит, пока ящик finkel.hana@gmail.com один раз не подтвердят. Откройте письмо от FormSubmit со ссылкой Activate Form и нажмите её — проверьте и папку «Спам». После этого заявки начнут приходить на почту.",
   errBody: "Заявка не отправилась. Попробуйте ещё раз или напишите напрямую:",
   errLink: "Написать письмо",
   thanksTitle: "Спасибо, заявка получена",
@@ -616,23 +629,60 @@ const RU = {
 class Component extends DCLogic {
 
 
-  state = { lang: "he", open: null, scrolled: false, vw: 1440, submitted: false, menuOpen: false, fontScale: 0, sending: false, sendError: false };
+  state = { lang: "he", open: null, scrolled: false, vw: 1440, submitted: false, menuOpen: false, fontScale: 0, sending: false, sendError: false, sendActivate: false };
 
   async sendForm(e) {
     e.preventDefault();
     if (this.state.sending) return;
     const form = e.target;
-    const data = new FormData(form);
-    if (data.get("_honey")) { this.setState({ submitted: true }); return; }
-    data.delete("_honey");
-    this.setState({ sending: true, sendError: false });
+    if (form.querySelector('[name="_honey"]')?.value) { this.setState({ submitted: true }); return; }
+    const lang = this.state.lang;
+    const t = lang === "ru" ? RU : HE;
+    const read = (sel) => (form.querySelector(sel)?.value || "").trim();
+    const name = read('input[autocomplete="name"]');
+    const phone = read('input[autocomplete="tel"]');
+    const email = read('input[autocomplete="email"]');
+    const pref = read("select");
+    const note = read("textarea");
+    const consent = form.querySelector('input[name="consent"]');
+    if (!consent || !consent.checked) {
+      if (consent) {
+        consent.setCustomValidity(t.fConsentNeed);
+        consent.reportValidity();
+      }
+      return;
+    }
+    const blank = "—";
+    const labels = lang === "ru"
+      ? { name: "Имя и фамилия", phone: "Телефон", email: "Эл. почта", lang: "Предпочтительный язык", note: "Комментарий", consent: "Согласие на обработку данных", site: "Язык сайта" }
+      : { name: "שם מלא", phone: "טלפון", email: "דואל", lang: "שפה מועדפת", note: "הערה", consent: "הסכמה לעיבוד נתונים", site: "שפת האתר" };
+    const inbox = "finkel.hana@gmail.com";
+    const payload = {
+      _subject: t.mailSubject,
+      _template: "table",
+      _captcha: "false",
+      [labels.name]: name,
+      [labels.phone]: phone,
+      [labels.email]: email || blank,
+      [labels.lang]: pref || blank,
+      [labels.note]: note || blank,
+      [labels.consent]: lang === "ru" ? "Да" : "כן",
+      [labels.site]: lang === "ru" ? "Русский" : "עברית"
+    };
+    if (email) payload._replyto = email;
+    this.setState({ sending: true, sendError: false, sendActivate: false });
     try {
-      const res = await fetch("https://formsubmit.co/ajax/" + (this.props.inboxEmail ?? "FINKEL.HANA@GMAIL.COM"), {
+      const res = await fetch("https://formsubmit.co/ajax/" + inbox, {
         method: "POST",
-        headers: { "Accept": "application/json" },
-        body: data
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(payload)
       });
-      if (!res.ok) throw new Error("http " + res.status);
+      const body = await res.json().catch(() => null);
+      if (body && /activat/i.test(String(body.message || ""))) {
+        this.setState({ sending: false, sendActivate: true });
+        return;
+      }
+      if (!res.ok || !body || String(body.success) !== "true") throw new Error("submit failed");
       this.setState({ sending: false, submitted: true });
     } catch (err) {
       this.setState({ sending: false, sendError: true });
@@ -754,13 +804,19 @@ class Component extends DCLogic {
       submitted: this.state.submitted,
       notSubmitted: !this.state.submitted,
       submit: (e) => this.sendForm(e),
+      consentInvalid: (e) => {
+        e.target.setCustomValidity("");
+        if (!e.target.checked) e.target.setCustomValidity(t.fConsentNeed);
+      },
+      consentClear: (e) => e.target.setCustomValidity(""),
       sending: this.state.sending,
       sendError: this.state.sendError,
+      sendActivate: this.state.sendActivate,
       submitLabel: this.state.sending ? t.fSending : t.fSubmit,
       submitBtnStyle: "background:" + (this.state.sending ? "#4C5D6B" : "#1B4573") + "; color:#fff; border:0; border-radius:3px; padding:19px; font-size:19px; font-weight:700; cursor:" + (this.state.sending ? "wait" : "pointer") + ";",
       mailSubject: t.mailSubject,
       langName: this.state.lang === "ru" ? "רוסית" : "עברית",
-      mailtoLink: "mailto:" + (this.props.inboxEmail ?? "FINKEL.HANA@GMAIL.COM"),
+      mailtoLink: "mailto:" + (this.props.inboxEmail ?? "finkel.hana@gmail.com"),
       footerPad: showSticky ? "110px" : "48px",
       stickyBar: showSticky
         ? "position:fixed; bottom:0; inset-inline:0; z-index:60; display:flex; gap:10px; padding:12px 14px; background:rgba(255,255,255,0.97); border-top:1px solid #DCE3EB; box-shadow:0 -10px 30px -20px rgba(0,0,0,0.3);"
