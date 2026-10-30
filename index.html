@@ -63,7 +63,7 @@
         <button onClick="{{ setHe }}" style="{{ heBtn }}">{{ heLabel }}</button>
         <button onClick="{{ setRu }}" style="{{ ruBtn }}">{{ ruLabel }}</button>
       </div>
-      <a href="#contact" style="{{ headerCtaStyle }}">{{ t.ctaHeader }}</a>
+      <a href="{{ tallyLink }}" target="_blank" rel="noopener" style="{{ headerCtaStyle }}">{{ t.ctaHeader }}</a>
       <button onClick="{{ toggleMenu }}" aria-label="menu" style="{{ burgerStyle }}">☰</button>
     </div>
     <div style="{{ mobileMenuStyle }}">
@@ -87,7 +87,7 @@
         <p style="font-size:clamp(19px,1.6vw,22px); color:#3A4653; margin:0 0 18px; max-width:52ch; text-wrap:pretty;">{{ t.heroSub }}</p>
         <p style="font-size:18px; color:#3A4653; margin:0 0 30px; max-width:52ch; border-inline-start:2px solid #7C8899; padding-inline-start:18px; text-wrap:pretty;">{{ t.heroNote }}</p>
         <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
-          <a href="#contact" style="background:#1B4573; color:#fff; padding:20px 30px; border-radius:3px; font-size:19px; font-weight:700;" style-hover="background:#123255; color:#fff; text-decoration:none;">{{ t.ctaHero }}</a>
+          <a href="{{ tallyLink }}" target="_blank" rel="noopener" style="background:#1B4573; color:#fff; padding:20px 30px; border-radius:3px; font-size:19px; font-weight:700;" style-hover="background:#123255; color:#fff; text-decoration:none;">{{ t.ctaHero }}</a>
           <a href="{{ waLink }}" style="border:1.5px solid #205080; color:#205080; padding:19px 28px; border-radius:3px; font-size:18px; font-weight:600; background:#fff;" style-hover="background:#EDF1F6; text-decoration:none;">{{ t.ctaWhats }}</a>
         </div>
         <div style="font-size:16px; color:#3A4653; margin-top:14px;">{{ t.ctaMicro }}</div>
@@ -285,7 +285,7 @@
         <p style="font-size:18px; color:#B9C2CC; margin:0 0 12px; border-inline-start:2px solid #7C8899; padding-inline-start:16px;">{{ t.finalHighlight }}</p>
         
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
-          <a href="#form" style="background:#fff; color:#205080; padding:19px 30px; border-radius:3px; font-size:19px; font-weight:700;" style-hover="background:#EDF1F6; color:#123255; text-decoration:none;">{{ t.finalCta }}</a>
+          <a href="{{ tallyLink }}" target="_blank" rel="noopener" style="background:#fff; color:#205080; padding:19px 30px; border-radius:3px; font-size:19px; font-weight:700;" style-hover="background:#EDF1F6; color:#123255; text-decoration:none;">{{ t.finalCta }}</a>
           <a href="{{ waLink }}" style="border:1.5px solid rgba(255,255,255,0.5); color:#fff; padding:18px 28px; border-radius:3px; font-size:18px; font-weight:600;" style-hover="border-color:#fff; color:#fff; text-decoration:none;">WhatsApp</a>
         </div>
         <div style="margin-top:32px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.16); font-size:16px; color:rgba(255,255,255,0.7); display:flex; gap:12px; flex-wrap:wrap;">
@@ -295,45 +295,8 @@
         </div>
       </div>
       <div id="form" style="flex:1 1 380px; min-width:290px; background:#fff; border-radius:2px; padding:clamp(24px,3vw,36px);">
-        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
-          <div style="padding:24px 0; text-align:center;">
-            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:26px; color:#205080; margin-bottom:10px;">{{ t.thanksTitle }}</div>
-            <p style="font-size:18px; color:#3A4653; margin:0 0 14px; text-wrap:pretty;">{{ t.thanksBody }}</p>
-            <p style="font-size:16px; color:#47535F; margin:0;">{{ t.thanksNote }}</p>
-          </div>
-        </sc-if>
-        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
-          <form onSubmit="{{ submit }}" style="display:flex; flex-direction:column; gap:18px;">
-            <input type="hidden" name="_subject" value="{{ mailSubject }}">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="שפת האתר" value="{{ langName }}">
-            <input type="text" name="_honey" value="" tabIndex="-1" autoComplete="off" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;">
-            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fName }}
-              <input type="text" name="{{ t.fName }}" required="required" autoComplete="name" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
-            </label>
-            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fPhone }}
-              <input type="tel" name="{{ t.fPhone }}" required="required" autoComplete="tel" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
-            </label>
-            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fEmail }}
-              <input type="email" name="{{ t.fEmail }}" autoComplete="email" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
-            </label>
-            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fLang }}
-              <select name="{{ t.fLang }}" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE;">
-                <sc-for list="{{ langOptions }}" as="o" hint-placeholder-count="2">
-                  <option>{{ o }}</option>
-                </sc-for>
-              </select>
-            </label>
-            <label style="display:flex; flex-direction:column; gap:8px; font-size:17px; font-weight:600; color:#1C2836;">{{ t.fNote }}
-              <textarea rows="3" name="{{ t.fNote }}" style="border:1px solid #CCD6E0; border-radius:3px; padding:16px; font-size:18px; color:#1C2836; background:#FCFDFE; resize:vertical;"></textarea>
-            </label>
-            <sc-if value="{{ sendError }}" hint-placeholder-val="{{ false }}">
-              <div style="border:1px solid #C9805F; background:#FBF2EE; border-radius:3px; padding:14px 16px; font-size:16px; color:#7A3B22;">{{ t.errBody }} <a href="{{ mailtoLink }}" style="color:#7A3B22; text-decoration:underline; font-weight:600;">{{ t.errLink }}</a></div>
-            </sc-if>
-            <button type="submit" disabled="{{ sending }}" style="{{ submitBtnStyle }}" style-hover="background:#123255;">{{ submitLabel }}</button>
-          </form>
-        </sc-if>
+        <iframe src="{{ tallySrc }}" title="{{ t.fName }}" loading="lazy" style="display:block; width:100%; min-height:620px; border:0; background:#fff;"></iframe>
+        <div style="margin-top:12px; font-size:15px; color:#47535F;"><a href="{{ tallyLink }}" target="_blank" rel="noopener" style="color:#205080; text-decoration:underline;">{{ tallyShort }}</a></div>
       </div>
     </div>
   </section>
@@ -353,7 +316,7 @@
   </footer>
 
   <div style="{{ stickyBar }}">
-    <a href="#contact" style="flex:1; background:#1B4573; color:#fff; padding:17px; border-radius:3px; text-align:center; font-size:17px; font-weight:700;">{{ t.stickyCall }}</a>
+    <a href="{{ tallyLink }}" target="_blank" rel="noopener" style="flex:1; background:#1B4573; color:#fff; padding:17px; border-radius:3px; text-align:center; font-size:17px; font-weight:700;">{{ t.stickyCall }}</a>
     <a href="{{ waLink }}" style="flex:1; border:1.5px solid #205080; color:#205080; padding:16px; border-radius:3px; text-align:center; font-size:17px; font-weight:600;">WhatsApp</a>
   </div>
 </div>
@@ -751,6 +714,9 @@ class Component extends DCLogic {
         sign: this.state.open === i ? "−" : "+",
         toggle: () => this.setState(s => ({ open: s.open === i ? null : i }))
       })),
+      tallyLink: this.state.lang === "ru" ? "https://tally.so/r/Ge6e0e" : "https://tally.so/r/kblb6Z",
+      tallyShort: this.state.lang === "ru" ? "tally.so/r/Ge6e0e" : "tally.so/r/kblb6Z",
+      tallySrc: "https://tally.so/embed/" + (this.state.lang === "ru" ? "Ge6e0e" : "kblb6Z") + "?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1",
       submitted: this.state.submitted,
       notSubmitted: !this.state.submitted,
       submit: (e) => this.sendForm(e),
