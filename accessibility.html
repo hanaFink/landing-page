@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&amp;family=Frank+Ruhl+Libre:wght@500;700&amp;family=PT+Serif:wght@700&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: 'Assistant', system-ui, sans-serif; color: #1C2836; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #205080; text-decoration: underline; }
+  a:hover { color: #123255; }
+  a:focus-visible, button:focus-visible { outline: 3px solid #205080; outline-offset: 2px; }
+  button { font-family: inherit; }
+</style>
+</helmet>
+<div dir="{{ dir }}" style="background:#FFFFFF; min-height:100vh; font-size:18px; line-height:1.7;">
+  <header style="border-bottom:1px solid #DCE3EB; background:#fff;">
+    <div style="height:2px; background:linear-gradient(90deg,#205080,#7C8899);"></div>
+    <div style="max-width:880px; margin:0 auto; padding:16px 22px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="{{ homeLink }}" style="display:flex; align-items:center; gap:12px; text-decoration:none; margin-inline-end:auto; min-width:0;">
+        <img src="assets/logo.png" alt="{{ t.altLogo }}" style="height:44px; width:auto; display:block; flex:none;">
+        <span style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; color:#14273C; font-size:19px;">{{ t.name }}</span>
+      </a>
+      <div style="display:flex; align-items:center; gap:2px; border:1px solid #DCE3EB; border-radius:3px; padding:3px; background:#F5F8FA;">
+        <button onClick="{{ setHe }}" style="{{ heBtn }}">עברית</button>
+        <button onClick="{{ setRu }}" style="{{ ruBtn }}">Русский</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width:880px; margin:0 auto; padding:clamp(36px,5vw,72px) 22px clamp(48px,6vw,96px);">
+    <a href="{{ homeLink }}" style="font-size:16px; color:#205080;">{{ t.back }}</a>
+    <h1 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(32px,4vw,46px); line-height:1.2; margin:18px 0 10px; color:#14273C;">{{ t.title }}</h1>
+    <div style="font-size:15.5px; color:#47535F; margin-bottom:26px;">{{ t.updated }}</div>
+    <p style="font-size:clamp(18px,1.6vw,20px); color:#2D3A48; margin:0 0 36px; text-wrap:pretty;">{{ t.intro }}</p>
+
+    <sc-for list="{{ t.sections }}" as="s" hint-placeholder-count="10">
+      <section style="border-top:1px solid #DCE3EB; padding:26px 0 8px; display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:18px;">
+        <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:20px; color:#7C8899; line-height:1.4; font-variant-numeric:tabular-nums;">{{ s.n }}</div>
+        <div>
+          <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(21px,2vw,25px); line-height:1.35; margin:0 0 10px; color:#14273C;">{{ s.title }}</h2>
+          <sc-for list="{{ s.paras }}" as="p" hint-placeholder-count="1">
+            <p style="margin:0 0 14px; color:#2D3A48; text-wrap:pretty;">{{ p }}</p>
+          </sc-for>
+          <sc-if value="{{ s.hasItems }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:10px; margin:0 0 16px;">
+              <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="3">
+                <div style="border-inline-start:2px solid #C9D3DE; padding-inline-start:14px;">
+                  <div style="font-weight:700; color:#14273C;">{{ it.k }}</div>
+                  <div style="color:#2D3A48; text-wrap:pretty;">{{ it.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-for>
+
+    <div style="margin-top:28px; padding:22px 24px; background:#F5F8FA; border:1px solid #E4EAF1; border-radius:3px;">
+      <div style="font-weight:700; color:#14273C; margin-bottom:6px;">{{ t.contactTitle }}</div>
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <a href="mailto:FINKEL.HANA@GMAIL.COM" dir="ltr" style="unicode-bidi:isolate; align-self:flex-start;">FINKEL.HANA@GMAIL.COM</a>
+        <a href="tel:+972544866718" dir="ltr" style="unicode-bidi:isolate; align-self:flex-start;">054-486-6718</a>
+      </div>
+    </div>
+  </main>
+
+  <footer style="background:#101E2C; padding:32px 22px; color:rgba(255,255,255,0.72); font-size:15.5px;">
+    <div style="max-width:880px; margin:0 auto; display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <span>{{ t.footer }}</span>
+      <a href="{{ homeLink }}" style="color:#fff; margin-inline-start:auto;">{{ t.backShort }}</a>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const HE = {
+  meta: "הצהרת נגישות | חנה פינקלשטיין",
+  name: "חנה פינקלשטיין", altLogo: "לוגו חנה פינקלשטיין",
+  back: "→ חזרה לעמוד הראשי", backShort: "לעמוד הראשי",
+  title: "הצהרת נגישות",
+  updated: "עודכן לאחרונה: 17 בנובמבר 2026",
+  intro: "חשוב לי שכל מי שמתקרב לפרישה יוכל לקבל מידע ולפנות אליי בנוחות — גם מי שמתקשה בראייה, בשמיעה או בשימוש בעכבר. בעמוד זה מפורט מה נעשה כדי להנגיש את האתר ואת השירות, ואיך לפנות אם משהו אינו נגיש עבורכם.",
+  sections: [
+    { n: "01", title: "מצב הנגישות באתר", paras: [
+      "האתר נבנה תוך התאמה, במידת האפשר, להנחיות תקן ישראלי 5568 ברמה AA, המבוסס על הנחיות WCAG 2.0.",
+      "העסק פועל כעוסק פטור. ההתאמות נעשו מתוך רצון לאפשר שימוש נוח לכולם."
+    ]},
+    { n: "02", title: "התאמות שבוצעו באתר", paras: [], items: [
+      { k: "הגדלת טקסט", v: "שלושה גדלי טקסט בכפתורי A בראש העמוד. הבחירה נשמרת לביקור הבא." },
+      { k: "ניגודיות וקריאות", v: "טקסט כהה על רקע בהיר, גופן גדול כברירת מחדל ומרווחי שורות נוחים." },
+      { k: "ניווט במקלדת", v: "אפשר לעבור בין הקישורים והכפתורים במקש Tab, עם מסגרת פוקוס בולטת." },
+      { k: "מבנה ברור", v: "כותרות מסודרות לפי היררכיה, קישורים עם טקסט ברור ותיאורים חלופיים לתמונות." },
+      { k: "שפות וכיווניות", v: "האתר זמין בעברית (מימין לשמאל) וברוסית (משמאל לימין), עם הגדרת שפה נכונה לקוראי מסך." },
+      { k: "התאמה למכשירים", v: "האתר מותאם למחשב, לטאבלט ולנייד, ומספר הטלפון לחיץ לחיוג ישיר." }
+    ]},
+    { n: "03", title: "מגבלות ידועות", paras: [
+      "טופס יצירת הקשר מופעל על ידי שירות חיצוני (Tally), והפנייה ב־WhatsApp עוברת לאפליקציה חיצונית. רמת הנגישות של שירותים אלה אינה בשליטתי המלאה.",
+      "אם קשה לכם להשתמש בטופס — אפשר לפנות בטלפון או בדוא״ל, ואחזור אליכם."
+    ]},
+    { n: "04", title: "נגישות השירות והפגישות", paras: [
+      "השירות ניתן בעברית וברוסית, בטלפון, ב־Zoom או בפגישה פרונטלית.",
+      "במקום הפגישות יש מעלית. אם נדרשת התאמה נוספת — למשל זמן פגישה ארוך יותר, הדפסה בגופן מוגדל או פגישה מרחוק במקום הגעה — אפשר לבקש מראש."
+    ]},
+    { n: "05", title: "רכזת הנגישות", paras: [
+      "רכזת הנגישות היא חנה פינקלשטיין. אפשר לפנות אליי בטלפון או בדוא״ל המופיעים בתחתית העמוד."
+    ]},
+    { n: "06", title: "נתקלתם בבעיה?", paras: [
+      "אם מצאתם חלק באתר או בשירות שאינו נגיש לכם — אשמח לשמוע. כדאי לציין באיזה עמוד מדובר, מה ניסיתם לעשות ובאיזה מכשיר או דפדפן השתמשתם.",
+      "אשתדל לחזור אליכם בהקדם ולמצוא פתרון, ובינתיים לספק את המידע או השירות בדרך חלופית."
+    ]}
+  ],
+  contactTitle: "פניות בנושא נגישות",
+  footer: "© חנה פינקלשטיין · עוסק פטור 313922619"
+};
+const RU = {
+  meta: "Доступность сайта | Хана Финкельштейн",
+  name: "Хана Финкельштейн", altLogo: "Логотип Ханы Финкельштейн",
+  back: "← На главную страницу", backShort: "На главную",
+  title: "Заявление о доступности",
+  updated: "Последнее обновление: 17 ноября 2026 г.",
+  intro: "Мне важно, чтобы каждый, кто готовится к выходу на пенсию, мог спокойно получить информацию и связаться со мной — в том числе люди с нарушениями зрения, слуха или те, кому неудобно пользоваться мышью. Здесь описано, что сделано для доступности сайта и услуги и куда обратиться, если что-то для вас неудобно.",
+  sections: [
+    { n: "01", title: "Уровень доступности сайта", paras: [
+      "Сайт создан с учетом, насколько это возможно, требований израильского стандарта 5568 уровня AA, основанного на рекомендациях WCAG 2.0.",
+      "Бизнес работает в статусе «осек патур». Все адаптации сделаны для того, чтобы сайтом было удобно пользоваться всем."
+    ]},
+    { n: "02", title: "Что сделано на сайте", paras: [], items: [
+      { k: "Увеличение текста", v: "Три размера текста — кнопки A в верхней части страницы. Выбор сохраняется до следующего посещения." },
+      { k: "Контраст и читаемость", v: "Темный текст на светлом фоне, крупный шрифт по умолчанию и удобный межстрочный интервал." },
+      { k: "Управление с клавиатуры", v: "По ссылкам и кнопкам можно переходить клавишей Tab — активный элемент четко выделяется рамкой." },
+      { k: "Понятная структура", v: "Последовательные заголовки, ссылки с понятным текстом и текстовые описания изображений." },
+      { k: "Языки и направление текста", v: "Сайт доступен на иврите (справа налево) и на русском (слева направо), язык страницы указан корректно для экранных дикторов." },
+      { k: "Адаптация к устройствам", v: "Сайт удобен на компьютере, планшете и телефоне, номер телефона можно набрать одним нажатием." }
+    ]},
+    { n: "03", title: "Известные ограничения", paras: [
+      "Контактная форма работает на внешнем сервисе (Tally), а WhatsApp открывается в отдельном приложении. Их доступность я не могу полностью контролировать.",
+      "Если форма неудобна — позвоните или напишите на эл. почту, и я с вами свяжусь."
+    ]},
+    { n: "04", title: "Доступность услуги и встреч", paras: [
+      "Консультации проходят на русском и иврите — по телефону, в Zoom или при личной встрече.",
+      "В месте встреч есть лифт. Если нужна другая адаптация — например, более длинная встреча, распечатка крупным шрифтом или встреча онлайн вместо личной — скажите заранее."
+    ]},
+    { n: "05", title: "Ответственная за доступность", paras: [
+      "Ответственная за доступность — Хана Финкельштейн. Связаться со мной можно по телефону или эл. почте, указанным внизу страницы."
+    ]},
+    { n: "06", title: "Столкнулись с проблемой?", paras: [
+      "Если какая-то часть сайта или услуги для вас недоступна — пожалуйста, сообщите. Укажите, о какой странице идет речь, что вы пытались сделать и каким устройством или браузером пользовались.",
+      "Я постараюсь как можно скорее ответить и найти решение, а пока — предоставить информацию или услугу другим способом."
+    ]}
+  ],
+  contactTitle: "Вопросы о доступности",
+  footer: "© Хана Финкельштейн · осек патур 313922619"
+};
+
+class Component extends DCLogic {
+  state = { lang: "he" };
+  componentDidMount() {
+    try {
+      const q = new URLSearchParams(location.search).get("lang");
+      if (q === "ru") this.setState({ lang: "ru" });
+      const z = parseInt(localStorage.getItem("cf-font-scale") || "0", 10);
+      if (z === 1 || z === 2) document.body.style.zoom = [1, 1.15, 1.32][z];
+    } catch (e) {}
+    this.syncHead();
+  }
+  componentDidUpdate(p, ps) { if (ps.lang !== this.state.lang) this.syncHead(); }
+  syncHead() {
+    const t = this.state.lang === "ru" ? RU : HE;
+    try { document.title = t.meta; document.documentElement.lang = this.state.lang; } catch (e) {}
+  }
+  setLang(l) {
+    this.setState({ lang: l });
+    try { const u = new URL(location.href); if (l === "ru") u.searchParams.set("lang", "ru"); else u.searchParams.delete("lang"); history.replaceState(null, "", u); } catch (e) {}
+  }
+  renderVals() {
+    const ru = this.state.lang === "ru";
+    const t = ru ? RU : HE;
+    const btn = (on) => "border:0; cursor:pointer; padding:8px 13px; border-radius:3px; font-size:15.5px; font-weight:600; background:" + (on ? "#205080" : "transparent") + "; color:" + (on ? "#fff" : "#4C5D6B") + ";";
+    let home = "./";
+    try { if (/\.dc\.html$/.test(location.pathname)) home = "Retirement Planning Landing v4.dc.html"; } catch (e) {}
+    return {
+      t: { ...t, sections: t.sections.map(s => ({ ...s, hasItems: !!(s.items && s.items.length), items: s.items || [] })) },
+      dir: ru ? "ltr" : "rtl",
+      homeLink: home + (ru ? "?lang=ru" : ""),
+      heBtn: btn(!ru), ruBtn: btn(ru),
+      setHe: () => this.setLang("he"), setRu: () => this.setLang("ru")
+    };
+  }
+}
+</script>
+</body>
+</html>

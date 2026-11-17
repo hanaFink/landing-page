@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700&amp;family=Frank+Ruhl+Libre:wght@500;700&amp;family=PT+Serif:wght@700&amp;display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: 'Assistant', system-ui, sans-serif; color: #1C2836; -webkit-font-smoothing: antialiased; }
+  * { box-sizing: border-box; }
+  a { color: #205080; text-decoration: underline; }
+  a:hover { color: #123255; }
+  a:focus-visible, button:focus-visible { outline: 3px solid #205080; outline-offset: 2px; }
+  button { font-family: inherit; }
+</style>
+</helmet>
+<div dir="{{ dir }}" style="background:#FFFFFF; min-height:100vh; font-size:18px; line-height:1.7;">
+  <header style="border-bottom:1px solid #DCE3EB; background:#fff;">
+    <div style="height:2px; background:linear-gradient(90deg,#205080,#7C8899);"></div>
+    <div style="max-width:880px; margin:0 auto; padding:16px 22px; display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+      <a href="{{ homeLink }}" style="display:flex; align-items:center; gap:12px; text-decoration:none; margin-inline-end:auto; min-width:0;">
+        <img src="assets/logo.png" alt="{{ t.altLogo }}" style="height:44px; width:auto; display:block; flex:none;">
+        <span style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; color:#14273C; font-size:19px;">{{ t.name }}</span>
+      </a>
+      <div style="display:flex; align-items:center; gap:2px; border:1px solid #DCE3EB; border-radius:3px; padding:3px; background:#F5F8FA;">
+        <button onClick="{{ setHe }}" style="{{ heBtn }}">עברית</button>
+        <button onClick="{{ setRu }}" style="{{ ruBtn }}">Русский</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="max-width:880px; margin:0 auto; padding:clamp(36px,5vw,72px) 22px clamp(48px,6vw,96px);">
+    <a href="{{ homeLink }}" style="font-size:16px; color:#205080;">{{ t.back }}</a>
+    <h1 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(32px,4vw,46px); line-height:1.2; margin:18px 0 10px; color:#14273C;">{{ t.title }}</h1>
+    <div style="font-size:15.5px; color:#47535F; margin-bottom:26px;">{{ t.updated }}</div>
+    <p style="font-size:clamp(18px,1.6vw,20px); color:#2D3A48; margin:0 0 36px; text-wrap:pretty;">{{ t.intro }}</p>
+
+    <sc-for list="{{ t.sections }}" as="s" hint-placeholder-count="10">
+      <section style="border-top:1px solid #DCE3EB; padding:26px 0 8px; display:grid; grid-template-columns:auto minmax(0,1fr); column-gap:18px;">
+        <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:20px; color:#7C8899; line-height:1.4; font-variant-numeric:tabular-nums;">{{ s.n }}</div>
+        <div>
+          <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(21px,2vw,25px); line-height:1.35; margin:0 0 10px; color:#14273C;">{{ s.title }}</h2>
+          <sc-for list="{{ s.paras }}" as="p" hint-placeholder-count="1">
+            <p style="margin:0 0 14px; color:#2D3A48; text-wrap:pretty;">{{ p }}</p>
+          </sc-for>
+          <sc-if value="{{ s.hasItems }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex; flex-direction:column; gap:10px; margin:0 0 16px;">
+              <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="3">
+                <div style="border-inline-start:2px solid #C9D3DE; padding-inline-start:14px;">
+                  <div style="font-weight:700; color:#14273C;">{{ it.k }}</div>
+                  <div style="color:#2D3A48; text-wrap:pretty;">{{ it.v }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </section>
+    </sc-for>
+
+    <div style="margin-top:28px; padding:22px 24px; background:#F5F8FA; border:1px solid #E4EAF1; border-radius:3px;">
+      <div style="font-weight:700; color:#14273C; margin-bottom:6px;">{{ t.contactTitle }}</div>
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <a href="mailto:FINKEL.HANA@GMAIL.COM" dir="ltr" style="unicode-bidi:isolate; align-self:flex-start;">FINKEL.HANA@GMAIL.COM</a>
+        <a href="tel:+972544866718" dir="ltr" style="unicode-bidi:isolate; align-self:flex-start;">054-486-6718</a>
+      </div>
+    </div>
+  </main>
+
+  <footer style="background:#101E2C; padding:32px 22px; color:rgba(255,255,255,0.72); font-size:15.5px;">
+    <div style="max-width:880px; margin:0 auto; display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <span>{{ t.footer }}</span>
+      <a href="{{ homeLink }}" style="color:#fff; margin-inline-start:auto;">{{ t.backShort }}</a>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const OWNER = "חנה פינקלשטיין";
+const HE = {
+  meta: "מדיניות פרטיות | חנה פינקלשטיין",
+  name: "חנה פינקלשטיין", altLogo: "לוגו חנה פינקלשטיין",
+  back: "→ חזרה לעמוד הראשי", backShort: "לעמוד הראשי",
+  title: "מדיניות פרטיות",
+  updated: "עודכן לאחרונה: 17 בנובמבר 2026",
+  intro: "המדיניות הזו מסבירה איזה מידע נאסף כשאתם פונים אליי דרך האתר, למה הוא משמש, למי הוא מועבר ומה הזכויות שלכם לגביו. כתבתי אותה בשפה פשוטה, ככל האפשר.",
+  sections: [
+    { n: "01", title: "מי אחראית על המידע", paras: [
+      "האתר מופעל על ידי חנה פינקלשטיין, עוסק פטור מס׳ 313922619. אני האחראית על המידע שנאסף באתר ועל השימוש בו.",
+      "לכל שאלה בנושא פרטיות אפשר לפנות אליי בדוא״ל או בטלפון המופיעים בתחתית העמוד."
+    ]},
+    { n: "02", title: "איזה מידע נאסף", paras: [
+      "רק מידע שאתם בוחרים למסור:"
+    ], items: [
+      { k: "בטופס יצירת הקשר", v: "שם, טלפון, ופרטים נוספים שתבחרו לכתוב — למשל דוא״ל, שפה מועדפת או הערה קצרה." },
+      { k: "בפנייה בטלפון או ב־WhatsApp", v: "הפרטים שתמסרו במהלך הפנייה." },
+      { k: "מידע טכני", v: "בעת גלישה, שרתי האחסון רושמים באופן אוטומטי נתונים טכניים בסיסיים כמו כתובת IP וסוג דפדפן, לצורך תפעול ואבטחה." }
+    ], paras2: [] },
+    { n: "03", title: "למה המידע משמש", paras: [
+      "כדי לחזור אליכם, לתאם שיחת התאמה ולשמור תיעוד של הפנייה.",
+      "המידע לא משמש לדיוור או לפרסום, ולא נמכר לאף גורם. אם בעתיד אשלח עדכונים — זה יהיה רק למי שיבקש זאת במפורש.",
+      "אנא אל תכללו בטופס מידע רגיש כמו מספרי חשבון, מספרי פוליסות או נתוני שכר. מסמכים כאלה נאספים רק אם מחליטים להתקדם לשירות, ובדרך מתואמת."
+    ]},
+    { n: "04", title: "האם חובה למסור את המידע", paras: [
+      "אין חובה חוקית למסור את הפרטים. עם זאת, בלי שם ודרך ליצירת קשר לא אוכל לחזור אליכם.",
+      "שליחת הטופס מהווה הסכמה לשימוש במידע לפי מדיניות זו."
+    ]},
+    { n: "05", title: "למי המידע מועבר", paras: [
+      "המידע מועבר רק לספקי שירות שהאתר נעזר בהם, ורק במידה הנדרשת לפעולתם. חלקם פועלים מחוץ לישראל:"
+    ], items: [
+      { k: "Tally (בלגיה, האיחוד האירופי)", v: "שירות הטפסים. הפניות שנשלחות דרך הטופס נשמרות אצלו." },
+      { k: "Google — Gmail ו־Google Fonts", v: "התראות על פניות חדשות מגיעות לתיבת דוא״ל ב־Gmail. גופני האתר נטענים משרתי Google, ולכן כתובת ה־IP שלכם מועברת אליהם." },
+      { k: "Vercel (ארה״ב)", v: "אחסון האתר. רושם נתונים טכניים בסיסיים של הגלישה." },
+      { k: "WhatsApp (Meta)", v: "רק אם בחרתם לפנות דרכו. חלה עליו מדיניות הפרטיות של WhatsApp." }
+    ]},
+    { n: "06", title: "כמה זמן המידע נשמר", paras: [
+      "פניות שלא הובילו לשירות נשמרות עד 12 חודשים ממועד הפנייה, ולאחר מכן נמחקות.",
+      "אם מתקדמים לשירות, המידע נשמר כחלק מתיק העבודה למשך הזמן הנדרש לפי דין."
+    ]},
+    { n: "07", title: "הזכויות שלכם", paras: [
+      "אתם רשאים לבקש לעיין במידע שנשמר עליכם, לתקן מידע שגוי או לבקש את מחיקתו.",
+      "את הבקשה אפשר לשלוח בדוא״ל. אשיב בתוך 30 יום."
+    ]},
+    { n: "08", title: "עוגיות ומעקב", paras: [
+      "האתר אינו משתמש בכלי מעקב, פרסום או סטטיסטיקה.",
+      "הדפדפן שלכם שומר רק את בחירת גודל הטקסט, כדי שתישאר בביקור הבא. טופס Tally המוטמע בעמוד עשוי להשתמש בעוגיות טכניות הנדרשות לפעולתו."
+    ]},
+    { n: "09", title: "אבטחת מידע", paras: [
+      "האתר מוצפן (HTTPS), והגישה לפניות מוגבלת אליי בלבד. אני נוקטת אמצעים סבירים להגנה על המידע, אך אין שיטת אבטחה שמבטיחה הגנה מוחלטת."
+    ]},
+    { n: "10", title: "עדכונים למדיניות", paras: [
+      "אם המדיניות תשתנה, הגרסה המעודכנת תפורסם בעמוד זה עם תאריך העדכון."
+    ]}
+  ],
+  contactTitle: "פניות בנושא פרטיות",
+  footer: "© חנה פינקלשטיין · עוסק פטור 313922619"
+};
+const RU = {
+  meta: "Политика конфиденциальности | Хана Финкельштейн",
+  name: "Хана Финкельштейн", altLogo: "Логотип Ханы Финкельштейн",
+  back: "← На главную страницу", backShort: "На главную",
+  title: "Политика конфиденциальности",
+  updated: "Последнее обновление: 17 ноября 2026 г.",
+  intro: "Здесь объясняется, какие данные собираются, когда вы обращаетесь ко мне через сайт, для чего они используются, кому передаются и какие у вас есть права. Я постаралась написать это как можно проще.",
+  sections: [
+    { n: "01", title: "Кто отвечает за данные", paras: [
+      "Сайт ведет Хана Финкельштейн, «осек патур» № 313922619. Я отвечаю за данные, собранные на сайте, и за их использование.",
+      "По любым вопросам конфиденциальности можно написать или позвонить мне — контакты указаны внизу страницы."
+    ]},
+    { n: "02", title: "Какие данные собираются", paras: [
+      "Только те, которые вы сами решите сообщить:"
+    ], items: [
+      { k: "В контактной форме", v: "Имя, телефон и все, что вы захотите добавить, — например, эл. почту, предпочтительный язык или короткий комментарий." },
+      { k: "При обращении по телефону или в WhatsApp", v: "Сведения, которые вы сообщите в разговоре." },
+      { k: "Технические данные", v: "При посещении сайта серверы хостинга автоматически записывают базовые технические данные — IP-адрес и тип браузера — для работы и безопасности сайта." }
+    ]},
+    { n: "03", title: "Для чего используются данные", paras: [
+      "Чтобы связаться с вами, договориться о консультации и сохранить запись об обращении.",
+      "Данные не используются для рассылок или рекламы и никому не продаются. Если в будущем появятся рассылки — только для тех, кто прямо об этом попросит.",
+      "Пожалуйста, не указывайте в форме конфиденциальные сведения: номера счетов, полисов или данные о зарплате. Такие документы собираются только если вы решите перейти к работе — и по согласованному порядку."
+    ]},
+    { n: "04", title: "Обязательно ли сообщать данные", paras: [
+      "Закон этого не требует. Но без имени и способа связи я не смогу вам ответить.",
+      "Отправляя форму, вы соглашаетесь на использование данных в соответствии с этой политикой."
+    ]},
+    { n: "05", title: "Кому передаются данные", paras: [
+      "Только сервисам, которыми пользуется сайт, и только в той мере, в какой это нужно для их работы. Часть из них находится за пределами Израиля:"
+    ], items: [
+      { k: "Tally (Бельгия, ЕС)", v: "Сервис форм. Заявки, отправленные через форму, хранятся у него." },
+      { k: "Google — Gmail и Google Fonts", v: "Уведомления о новых заявках приходят на почту Gmail. Шрифты сайта загружаются с серверов Google, поэтому ваш IP-адрес передается Google." },
+      { k: "Vercel (США)", v: "Хостинг сайта. Записывает базовые технические данные посещений." },
+      { k: "WhatsApp (Meta)", v: "Только если вы решите написать туда. Действует политика конфиденциальности WhatsApp." }
+    ]},
+    { n: "06", title: "Сколько хранятся данные", paras: [
+      "Обращения, после которых работа не началась, хранятся до 12 месяцев с даты обращения, затем удаляются.",
+      "Если вы переходите к работе, данные хранятся в составе рабочего дела столько, сколько требует закон."
+    ]},
+    { n: "07", title: "Ваши права", paras: [
+      "Вы можете попросить показать данные, которые о вас хранятся, исправить неточные сведения или удалить их.",
+      "Запрос можно отправить по эл. почте. Я отвечу в течение 30 дней."
+    ]},
+    { n: "08", title: "Cookies и отслеживание", paras: [
+      "Сайт не использует инструменты отслеживания, рекламы или статистики.",
+      "Ваш браузер сохраняет только выбранный размер текста — чтобы он сохранился при следующем посещении. Встроенная форма Tally может использовать технические cookies, необходимые для ее работы."
+    ]},
+    { n: "09", title: "Защита данных", paras: [
+      "Сайт работает по защищенному протоколу HTTPS, доступ к заявкам есть только у меня. Я принимаю разумные меры для защиты данных, но ни один способ защиты не дает абсолютной гарантии."
+    ]},
+    { n: "10", title: "Изменения политики", paras: [
+      "Если политика изменится, новая версия будет опубликована на этой странице с датой обновления."
+    ]}
+  ],
+  contactTitle: "Вопросы о конфиденциальности",
+  footer: "© Хана Финкельштейн · осек патур 313922619"
+};
+
+class Component extends DCLogic {
+  state = { lang: "he" };
+  componentDidMount() {
+    try {
+      const q = new URLSearchParams(location.search).get("lang");
+      if (q === "ru") this.setState({ lang: "ru" });
+      const z = parseInt(localStorage.getItem("cf-font-scale") || "0", 10);
+      if (z === 1 || z === 2) document.body.style.zoom = [1, 1.15, 1.32][z];
+    } catch (e) {}
+    this.syncHead();
+  }
+  componentDidUpdate(p, ps) { if (ps.lang !== this.state.lang) this.syncHead(); }
+  syncHead() {
+    const t = this.state.lang === "ru" ? RU : HE;
+    try { document.title = t.meta; document.documentElement.lang = this.state.lang; } catch (e) {}
+  }
+  setLang(l) {
+    this.setState({ lang: l });
+    try { const u = new URL(location.href); if (l === "ru") u.searchParams.set("lang", "ru"); else u.searchParams.delete("lang"); history.replaceState(null, "", u); } catch (e) {}
+  }
+  renderVals() {
+    const ru = this.state.lang === "ru";
+    const t = ru ? RU : HE;
+    const btn = (on) => "border:0; cursor:pointer; padding:8px 13px; border-radius:3px; font-size:15.5px; font-weight:600; background:" + (on ? "#205080" : "transparent") + "; color:" + (on ? "#fff" : "#4C5D6B") + ";";
+    let home = "./";
+    try { if (/\.dc\.html$/.test(location.pathname)) home = "Retirement Planning Landing v4.dc.html"; } catch (e) {}
+    return {
+      t: { ...t, sections: t.sections.map(s => ({ ...s, hasItems: !!(s.items && s.items.length), items: s.items || [] })) },
+      dir: ru ? "ltr" : "rtl",
+      homeLink: home + (ru ? "?lang=ru" : ""),
+      heBtn: btn(!ru), ruBtn: btn(ru),
+      setHe: () => this.setLang("he"), setRu: () => this.setLang("ru")
+    };
+  }
+}
+</script>
+</body>
+</html>

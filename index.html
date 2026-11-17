@@ -42,11 +42,11 @@
         </div>
       </div>
     </div>
-    <div style="{{ headerRowStyle }}">
+    <div ref="{{ rowRef }}" style="{{ headerRowStyle }}">
       <div style="display:flex; align-items:center; gap:13px; margin-inline-end:auto; min-width:0; overflow:hidden;">
         <img src="assets/logo.png" alt="{{ t.altLogo }}" style="{{ logoStyle }}" />
         <div style="display:flex; flex-direction:column; line-height:1.25; min-width:0;">
-          <span style="{{ brandNameStyle }}">{{ t.name }}</span>
+          <span ref="{{ nameRef }}" style="{{ brandNameStyle }}">{{ t.name }}</span>
           <span style="{{ roleStyle }}">{{ t.role }}</span>
         </div>
       </div>
@@ -78,14 +78,14 @@
   </header>
 
   <section style="background:linear-gradient(180deg,#FFFFFF 0%,#F5F8FA 100%); padding:clamp(36px,5vw,80px) 24px; overflow:hidden;">
-    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,72px); flex-wrap:wrap; align-items:center;">
+    <div style="max-width:1440px; margin:0 auto; display:flex; gap:clamp(28px,5vw,72px); flex-wrap:wrap; align-items:center;">
       <div style="flex:1 1 440px; min-width:290px;">
         <div style="display:inline-flex; align-items:center; gap:10px; font-size:15px; color:#205080; letter-spacing:0.06em; margin-bottom:20px;">
           <span style="width:34px; height:1px; background:#7C8899; display:inline-block;"></span>{{ t.heroEyebrow }}
         </div>
         <h1 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(32px,4.2vw,52px); line-height:1.22; margin:0 0 22px; color:#14273C; text-wrap:pretty;">{{ t.heroTitle }}</h1>
-        <p style="font-size:clamp(19px,1.6vw,22px); color:#3A4653; margin:0 0 18px; max-width:52ch; text-wrap:pretty;">{{ t.heroSub }}</p>
-        <p style="font-size:18px; color:#3A4653; margin:0 0 30px; max-width:52ch; border-inline-start:2px solid #7C8899; padding-inline-start:18px; text-wrap:pretty;">{{ t.heroNote }}</p>
+        <p style="font-size:clamp(19px,1.6vw,22px); color:#3A4653; margin:0 0 16px; max-width:52ch; text-wrap:pretty;">{{ t.heroSub }}</p>
+        <p style="font-size:clamp(19px,1.6vw,22px); color:#3A4653; margin:0 0 30px; max-width:52ch; text-wrap:pretty;">{{ t.heroSub2 }}</p>
         <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
           <a href="{{ tallyLink }}" target="_blank" rel="noopener" style="background:#1B4573; color:#fff; padding:20px 30px; border-radius:3px; font-size:19px; font-weight:700;" style-hover="background:#123255; color:#fff; text-decoration:none;">{{ t.ctaHero }}</a>
           <a href="{{ waLink }}" style="border:1.5px solid #205080; color:#205080; padding:19px 28px; border-radius:3px; font-size:18px; font-weight:600; background:#fff;" style-hover="background:#EDF1F6; text-decoration:none;">{{ t.ctaWhats }}</a>
@@ -106,8 +106,37 @@
     </div>
   </section>
 
+  <section id="tax" style="background:#EDF2F7; padding:clamp(44px,5.5vw,88px) 24px; border-block:1px solid #DCE3EB;">
+    <div style="max-width:1440px; margin:0 auto;">
+      <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(28px,3.2vw,42px); line-height:1.28; margin:0 0 18px; color:#14273C; max-width:28ch; text-wrap:pretty;">{{ t.taxTitle }}</h2>
+      <p style="font-size:clamp(19px,1.6vw,21px); color:#2D3A48; margin:0 0 40px; max-width:66ch; line-height:1.7; text-wrap:pretty;">{{ t.taxLead }}</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:clamp(16px,2vw,28px);">
+        <sc-for list="{{ t.taxItems }}" as="x" hint-placeholder-count="3">
+          <div style="background:#fff; border:1px solid #DCE3EB; border-top:3px solid #205080; border-radius:3px; padding:clamp(24px,2.4vw,32px);">
+            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:17px; color:#5A6675; font-variant-numeric:tabular-nums; margin-bottom:10px;">{{ x.n }}</div>
+            <h3 style="font-size:clamp(21px,1.9vw,24px); font-weight:700; line-height:1.35; margin:0 0 12px; color:#14273C; text-wrap:pretty;">{{ x.title }}</h3>
+            <p style="font-size:19px; color:#2D3A48; margin:0; line-height:1.7; text-wrap:pretty;">{{ x.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:clamp(24px,3vw,36px); background:#1B4573; border-radius:3px; padding:clamp(26px,3.2vw,44px); display:flex; flex-wrap:wrap; gap:clamp(20px,3.5vw,56px); align-items:center;">
+        <div style="flex:0 1 300px; min-width:240px;">
+          <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(46px,5.4vw,68px); line-height:1.05; color:#fff;"><span dir="ltr" style="unicode-bidi:isolate; font-variant-numeric:tabular-nums;">{{ t.taxFactFig }}</span></div>
+          <div style="font-size:17px; color:#D5DEE8; margin-top:8px;">{{ t.taxFactFigLabel }}</div>
+        </div>
+        <div style="flex:1 1 420px; min-width:260px;">
+          <h3 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(22px,2.2vw,28px); line-height:1.35; margin:0 0 12px; color:#fff; text-wrap:pretty;">{{ t.taxFactTitle }}</h3>
+          <p style="font-size:clamp(19px,1.6vw,21px); font-weight:600; color:#fff; margin:0 0 12px; line-height:1.6; text-wrap:pretty;">{{ t.taxFactLine }}</p>
+          <p style="font-size:18px; color:#E3E9F0; margin:0 0 18px; line-height:1.7; max-width:70ch; text-wrap:pretty;">{{ t.taxFactBody }}</p>
+          <a href="https://www.gov.il/BlobFolder/guide/2026-filling-out-form-161d/he/Guides_IncomeTax_filling-out-form-161d-2026.pdf" target="_blank" rel="noopener" style="color:#fff; font-size:17px; font-weight:600; text-decoration:underline; text-underline-offset:3px;" style-hover="color:#D5DEE8;">{{ t.taxFactLink }}</a>
+        </div>
+      </div>
+      <p style="font-size:17px; color:#47535F; margin:28px 0 0; max-width:72ch; text-wrap:pretty;">{{ t.taxNote }}</p>
+    </div>
+  </section>
+
   <section style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
-    <div style="max-width:1240px; margin:0 auto;">
+    <div style="max-width:1440px; margin:0 auto;">
       <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); line-height:1.28; margin:0 0 16px; color:#14273C; max-width:26ch; text-wrap:pretty;">{{ t.s1Title }}</h2>
       <p style="font-size:19px; color:#3A4653; margin:0 0 40px; max-width:72ch; text-wrap:pretty;">{{ t.s1Sub }}</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:0 clamp(28px,4vw,56px);">
@@ -125,7 +154,7 @@
   </section>
 
   <section id="timeline" style="background:#F5F8FA; padding:clamp(44px,5.5vw,88px) 24px; border-block:1px solid #E4EAF1;">
-    <div style="max-width:1240px; margin:0 auto;">
+    <div style="max-width:1440px; margin:0 auto;">
       <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 14px; color:#14273C;">{{ t.axisTitle }}</h2>
       <p style="font-size:19px; color:#3A4653; margin:0; max-width:64ch; text-wrap:pretty;">{{ t.axisSub }}</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); margin-top:44px;">
@@ -143,7 +172,7 @@
   </section>
 
   <section id="deliverables" style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
-    <div style="max-width:1240px; margin:0 auto;">
+    <div style="max-width:1440px; margin:0 auto;">
       <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); color:#14273C; margin:0 0 16px; max-width:26ch; text-wrap:pretty;">{{ t.s2Title }}</h2>
       <p style="font-size:19px; color:#3A4653; margin:0 0 40px; max-width:72ch; text-wrap:pretty;">{{ t.s2Sub }}</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:0 clamp(28px,4vw,56px);">
@@ -168,7 +197,7 @@
   </section>
 
   <section id="how" style="background:#1B4573; padding:clamp(44px,5.5vw,88px) 24px;">
-    <div style="max-width:1240px; margin:0 auto;">
+    <div style="max-width:1440px; margin:0 auto;">
       <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 40px; color:#fff;">{{ t.howTitle }}</h2>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px;">
         <sc-for list="{{ t.steps }}" as="s" hint-placeholder-count="5">
@@ -182,26 +211,8 @@
     </div>
   </section>
 
-  <section style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
-    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap; align-items:start;">
-      <div style="flex:1 1 380px; min-width:290px;">
-        <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); color:#14273C; margin:0 0 20px; text-wrap:pretty;">{{ t.diffTitle }}</h2>
-        <p style="font-size:clamp(19px,1.9vw,24px); color:#2D3A48; margin:0 0 24px; max-width:44ch; text-wrap:pretty;">{{ t.diffLead }}</p>
-        <p style="font-size:18px; color:#1C2836; margin:0; max-width:46ch; border-inline-start:2px solid #7C8899; padding-inline-start:16px; text-wrap:pretty;">{{ t.diffClose }}</p>
-      </div>
-      <div style="flex:1 1 420px; min-width:290px; display:flex; flex-direction:column;">
-        <sc-for list="{{ t.diffPoints }}" as="d" hint-placeholder-count="4">
-          <div style="border-top:1px solid #D3DCE5; padding:16px 0 18px;">
-            <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:clamp(18px,1.6vw,21px); color:#205080; margin-bottom:4px;">{{ d.title }}</div>
-            <p style="font-size:16.5px; color:#3A4653; margin:0; line-height:1.6; text-wrap:pretty;">{{ d.body }}</p>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </section>
-
   <section id="about" style="background:#F5F8FA; padding:clamp(44px,5.5vw,88px) 24px; border-block:1px solid #E4EAF1;">
-    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,72px); flex-wrap:wrap; align-items:start;">
+    <div style="max-width:1440px; margin:0 auto; display:flex; gap:clamp(28px,5vw,72px); flex-wrap:wrap; align-items:start;">
       <div style="flex:1 1 320px; min-width:270px; max-width:420px; margin:0 auto;">
         <div style="border:1px solid #DCE3EB; border-radius:2px; padding:10px; background:#fff; max-width:388px; margin-inline:auto;">
           <image-slot id="hana-portrait" src="assets/hana-portrait.jpg" shape="rounded" radius="4" style="width:100%; aspect-ratio:4/5;" placeholder="{{ t.altPortrait }}"></image-slot>
@@ -222,7 +233,7 @@
   </section>
 
   <section style="background:#fff; padding:clamp(44px,5.5vw,88px) 24px;">
-    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap;">
+    <div style="max-width:1440px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap;">
       <div style="flex:1 1 380px; min-width:290px;">
         <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 18px; color:#14273C;">{{ t.whoTitle }}</h2>
         <p style="font-size:19px; color:#3A4653; margin:0; max-width:56ch; text-wrap:pretty;">{{ t.whoBody }}</p>
@@ -236,7 +247,7 @@
   </section>
 
   <section id="faq" style="background:#F5F8FA; padding:clamp(44px,5.5vw,88px) 24px; border-block:1px solid #E4EAF1;">
-    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,4vw,56px); flex-wrap:wrap; align-items:start;">
+    <div style="max-width:1440px; margin:0 auto; display:flex; gap:clamp(28px,4vw,56px); flex-wrap:wrap; align-items:start;">
     <div style="flex:1 1 540px; min-width:290px;">
       <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 32px; color:#14273C;">{{ t.faqTitle }}</h2>
       <div style="display:flex; flex-direction:column;">
@@ -257,7 +268,7 @@
   </section>
 
   <section id="links" style="background:#EDF1F6; padding:clamp(40px,5vw,76px) 24px; border-bottom:1px solid #DAE1EA;">
-    <div style="max-width:1240px; margin:0 auto;">
+    <div style="max-width:1440px; margin:0 auto;">
       <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(24px,2.7vw,36px); margin:0 0 10px; color:#1C2836;">{{ t.linksTitle }}</h2>
       <p style="font-size:18px; color:#3A4653; margin:0 0 32px; max-width:66ch; text-wrap:pretty;">{{ t.linksSub }}</p>
       <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:0 clamp(28px,4vw,52px);">
@@ -278,10 +289,11 @@
   </section>
 
   <section id="contact" style="background:#16293D; padding:clamp(44px,5.5vw,88px) 24px;">
-    <div style="max-width:1240px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap; align-items:start;">
+    <div style="max-width:1440px; margin:0 auto; display:flex; gap:clamp(28px,5vw,64px); flex-wrap:wrap; align-items:start;">
       <div style="flex:1 1 420px; min-width:290px;">
         <h2 style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; font-size:clamp(26px,3vw,40px); margin:0 0 18px; color:#fff; text-wrap:pretty;">{{ t.finalTitle }}</h2>
-        <p style="font-size:19px; color:rgba(255,255,255,0.82); margin:0 0 20px; max-width:56ch; text-wrap:pretty;">{{ t.finalBody }}</p>
+        <p style="font-size:19px; color:rgba(255,255,255,0.82); margin:0 0 14px; max-width:56ch; text-wrap:pretty;">{{ t.finalBody }}</p>
+        <p style="font-size:19px; color:rgba(255,255,255,0.82); margin:0 0 20px; max-width:56ch; text-wrap:pretty;">{{ t.finalBody2 }}</p>
         <p style="font-size:18px; color:#B9C2CC; margin:0 0 12px; border-inline-start:2px solid #7C8899; padding-inline-start:16px;">{{ t.finalHighlight }}</p>
         
         <div style="display:flex; gap:14px; flex-wrap:wrap;">
@@ -296,19 +308,19 @@
       </div>
       <div id="form" style="flex:1 1 380px; min-width:290px; background:#fff; border-radius:2px; padding:clamp(24px,3vw,36px);">
         <iframe src="{{ tallySrc }}" title="{{ t.fName }}" loading="lazy" style="display:block; width:100%; min-height:620px; border:0; background:#fff;"></iframe>
-        <div style="margin-top:12px; font-size:15px; color:#47535F;"><a href="{{ tallyLink }}" target="_blank" rel="noopener" style="color:#205080; text-decoration:underline;">{{ tallyShort }}</a></div>
+        <div style="margin-top:12px; font-size:15px; color:#47535F; display:flex; gap:6px 16px; flex-wrap:wrap;"><a href="{{ tallyLink }}" target="_blank" rel="noopener" style="color:#205080; text-decoration:underline;">{{ tallyShort }}</a><span>{{ t.formPrivacy }} <a href="{{ privacyLink }}" style="color:#205080; text-decoration:underline;">{{ t.fl1 }}</a></span></div>
       </div>
     </div>
   </section>
 
   <footer style="background:#101E2C; padding:48px 24px {{ footerPad }}; color:rgba(255,255,255,0.72);">
-    <div style="max-width:1240px; margin:0 auto; display:flex; flex-direction:column; gap:13px;">
+    <div style="max-width:1440px; margin:0 auto; display:flex; flex-direction:column; gap:13px;">
       <img src="assets/logo-white.png" alt="{{ t.altLogo }}" style="height:56px; width:auto; align-self:flex-start; display:block; margin-bottom:6px;" />
       <div style="font-family:'Frank Ruhl Libre','PT Serif',serif; font-size:22px; color:#fff;">{{ t.footerName }}</div>
       <div style="font-size:17px;">{{ t.footerLine }}</div>
       <div style="display:flex; gap:20px; flex-wrap:wrap; font-size:16px; padding-top:6px;">
-        <a href="#" style="color:rgba(255,255,255,0.72);">{{ t.fl1 }}</a>
-        <a href="#" style="color:rgba(255,255,255,0.72);">{{ t.fl2 }}</a>
+        <a href="{{ privacyLink }}" style="color:rgba(255,255,255,0.72);">{{ t.fl1 }}</a>
+        <a href="{{ accessibilityLink }}" style="color:rgba(255,255,255,0.72);">{{ t.fl2 }}</a>
         <a href="#contact" style="color:rgba(255,255,255,0.72);">{{ t.fl3 }}</a>
       </div>
       <div style="border-top:1px solid rgba(255,255,255,0.14); margin-top:14px; padding-top:20px; font-size:15px; color:rgba(255,255,255,0.5); max-width:85ch; text-wrap:pretty;">{{ t.disclaimer }}</div>
@@ -332,8 +344,9 @@ const HE = {
   navAxis: "לוח זמנים", nav1: "מה תקבלו", nav2: "איך זה עובד", nav3: "אודות", navLinks: "מידע שימושי", nav4: "שאלות נפוצות", nav5: "צור קשר",
   ctaHeader: "לתיאום שיחת התאמה",
   heroEyebrow: "תכנון פרישה",
-  heroTitle: "מתקרבים לפרישה? זה הזמן לראות את התמונה המלאה.",
-  heroSub: "תכנון פרישה אישי שמחבר את הפנסיה, הפיצויים, המס, קיבוע הזכויות וביטוח לאומי — לתמונה אחת ברורה.",
+  heroTitle: "מתקרבים לפרישה? ייתכן שמגיעות לכם הטבות מס שיכולות לחסוך לכם הרבה כסף.",
+  heroSub: "במהלך שנות העבודה צברתם פנסיה, פיצויים וחסכונות. אבל האם אתם יודעים כמה מס באמת תצטרכו לשלם עליהם?",
+  heroSub2: "בפרישה קיימים פטורים והטבות מס שלא כולם מכירים. תכנון נכון יכול לעזור לכם לנצל את הזכויות שמגיעות לכם, להפחית תשלומי מס הכנסה ולשמור יותר כסף לשנות הפרישה.",
   heroNote: "כדי להבין מה צפוי לכם בפרישה ומה המשמעות הכספית של האפשרויות השונות.",
   ctaHero: "לתיאום שיחת התאמה ללא עלות",
   ctaWhats: "הודעה ב־WhatsApp",
@@ -349,20 +362,34 @@ const HE = {
   textSize: "גודל טקסט",
   fsSmall: "גודל טקסט רגיל", fsMed: "טקסט גדול", fsLarge: "טקסט גדול מאוד",
   caseTag: "מתוך העבודה",
-  caseTitle: "מה בדיקה מסודרת מוצאת",
-  caseBody: "בן 64, שכיר 31 שנה, הגיע כדי לבדוק אם כדאי לפרוש בסוף השנה. במיפוי נמצאו שתי קרנות לא פעילות משנות התשעים שלא נכללו בחישוב הקצבה שהוצג לו, וביטוח מנהלים עם מקדם המרה מוטב שהיה מאבד את יתרונו במשיכה חד־פעמית.",
-  caseOutcome: "ההשוואה בין שתי חלופות הפרישה שנבדקו הראתה פער של 780 ₪ בקצבה החודשית — לפני שנעשתה פעולה אחת.",
+  caseTitle: "מה בדיקה מסודרת יכולה לגלות?",
+  caseBody: "שכיר בן 64, לאחר 31 שנות עבודה, ביקש לבדוק את האפשרות לפרוש בסוף השנה. במהלך מיפוי המוצרים הפנסיוניים התגלו שתי קרנות לא פעילות שלא נכללו בחישוב הראשוני, וכן ביטוח מנהלים עם תנאים שהיה חשוב לבחון לפני משיכת כספים.",
+  caseOutcome: "המקרה ממחיש מדוע חשוב לרכז את כל המידע ולהשוות בין אפשרויות הפרישה לפני קבלת החלטות שעשויות להשפיע על הקצבה ועל המיסוי.",
   caseNote: "פרטים מזהים שונו לשמירה על פרטיות.",
   axisTitle: "מה קורה, ומתי",
   axisSub: "לכל גיל יש החלטות משלו. זה סדר הזמנים שממנו מתחילים לתכנן.",
   axis: [
-    { age: "60", kicker: "משיכת פיצויים", body: "משיכה של כספי פיצויים בשלב הזה עשויה להקטין את הפטור ממס שיהיה זמין לקצבה בעתיד." },
+    { age: "60", kicker: "אפשרות לתחילת קצבה מוקדמת", body: "בחלק מהמוצרים הפנסיוניים ניתן להתחיל לקבל קצבה מגיל 60, בהתאם לתנאי התוכנית. חשוב לבחון את ההשפעה על גובה הקצבה העתידית ועל המיסוי." },
     { age: "62–65", kicker: "גיל פרישה לאישה", body: "נקבע לפי שנת הלידה ועולה בהדרגה. מגיל זה נבדקת הזכאות לקצבת אזרח ותיק." },
-    { age: "67", kicker: "גיל פרישה לגבר", body: "מועד הזכאות לקצבת אזרח ותיק, ונקודת המוצא לבחינת קיבוע זכויות מול רשות המסים." },
-    { age: "67–70", kicker: "מבחן הכנסות", body: "בתקופה הזו הכנסה מעבודה עשויה להשפיע על גובה הקצבה מביטוח לאומי." },
-    { age: "70", kicker: "ללא מבחן הכנסות", body: "הקצבה משולמת ללא תלות בהכנסה, ובגין כל שנת דחייה נוספת ניתנת תוספת של 5%." }
+    { age: "67", kicker: "גיל פרישה לגברים", body: "מגיל זה נבחנת הזכאות לקצבת אזרח ותיק בכפוף לתנאים ולמבחן הכנסות. קיבוע זכויות נבחן לפי 'גיל הזכאות' לצורכי מס." },
+    { age: "67–70", kicker: "מבחן הכנסות", body: "בין גיל הפרישה לגיל 70, הזכאות לקצבת אזרח ותיק עשויה להיות מושפעת מהכנסות. אצל נשים תקופה זו עשויה להתחיל לפני גיל 67." },
+    { age: "70", kicker: "ללא מבחן הכנסות", body: "מגיל 70 הזכאות לקצבת אזרח ותיק אינה מותנית במבחן הכנסות. תוספת דחיית קצבה של 5% לשנה עשויה להינתן עבור שנות דחייה מזכות בין גיל הפרישה לגיל 70, בכפוף לתנאים." }
   ],
   axisNote: "הגילאים מובאים באופן כללי. גיל הפרישה לאישה נקבע לפי שנת הלידה, והזכאויות נבדקות באופן אישי.",
+  taxTitle: "יכול להיות שאתם זכאים להטבות מס שעדיין לא ניצלתם.",
+  taxLead: "לא כל הטבות המס בפרישה מיושמות אוטומטית במלואן. לפעמים נדרשת בדיקה, בחירה או הגשת בקשה כדי לנצל את הזכויות שמגיעות לכם.",
+  taxItems: [
+    { n: "01", title: "פחות מס על הפנסיה", body: "בדיקה של הפטור ממס על הקצבה החודשית ושל האפשרות להקטין את המס שתשלמו בשנות הפרישה." },
+    { n: "02", title: "מיסוי נכון של פיצויים ומענקי פרישה", body: "השוואת אפשרויות לקבלת הכספים, פריסת מס וניצול פטורים, תוך בחינת ההשלכות על הפנסיה העתידית." },
+    { n: "03", title: "בדיקת זכאות להחזרי מס", body: "גם אם כבר פרשתם, ייתכן ששילמתם מס ביתר. במקרים המתאימים אפשר לבדוק זכאות להחזרים בגין שנים קודמות." }
+  ],
+  taxFactTitle: "הידעתם? גם על הפנסיה שלכם עשוי להגיע פטור ממס.",
+  taxFactFig: "5,422 ₪",
+  taxFactFigLabel: "פטור חודשי מרבי · 2026",
+  taxFactLine: "עד 5,422 ₪ מהקצבה החודשית עשויים להיות פטורים ממס בשנת 2026.",
+  taxFactBody: "זהו סכום ההכנסה החודשית המרבי שיכול להיות פטור ממס לפי סעיף 9א, בכפוף לתנאי הזכאות. זה אינו סכום החיסכון במס. גובה החיסכון בפועל תלוי בקצבה, בהכנסות נוספות ובהטבות שכבר נוצלו.",
+  taxFactLink: "למדריך הרשמי של רשות המסים (PDF)",
+  taxNote: "החיסכון בפועל תלוי בנתונים האישיים ובזכאות לפי הדין.",
   s1Title: "פרישה היא הרבה יותר מהשאלה \u201cכמה פנסיה אקבל?\u201d",
   s1Sub: "במועד הפרישה נפגשים כמה נושאים שמשפיעים זה על זה. החלטה בנושא אחד יכולה להשפיע על המס, הקצבה, הפיצויים והכספים שיישארו בעתיד.",
   cards: [
@@ -374,17 +401,17 @@ const HE = {
     { n: "06", title: "בן/בת זוג והורשה", body: "כיצד בחירת מסלול הקצבה משפיעה על ההכנסה המשפחתית ועל הכספים שיישארו לשאירים." }
   ],
   s2Title: "בסיום התהליך תהיה לכם תמונת פרישה מסודרת",
-  s2Sub: "לא עוד ערימה של מסמכים ומספרים — אלא ריכוז ברור של מה שיש, מה צפוי ומה המשמעות של כל אפשרות.",
+  s2Sub: "תקבלו תמונה מרוכזת של ההכנסות והזכויות הצפויות, השוואה בין אפשרויות הפרישה והבנה של המשמעות הכספית של כל בחירה.",
   deliverables: [
-    { title: "מפת מקורות הכנסה", body: "מה צפוי להתקבל מכל מקור ובאיזה מועד." },
-    { title: "השוואת חלופות במספרים", body: "כיצד נראות האפשרויות מבחינת קצבה, סכומים חד־פעמיים ומיסוי." },
-    { title: "תמונת מס בפרישה", body: "אילו נושאי מס יש להסדיר, ומה ההשפעה האפשרית על ההכנסה נטו." },
-    { title: "סיכום מסודר", body: "ריכוז הנתונים, החלופות והנקודות לביצוע במקום אחד." }
+    { title: "מפת מקורות הכנסה", body: "ריכוז הקצבאות וההכנסות הצפויות, מקורותיהן ומועד תחילתן." },
+    { title: "השוואת חלופות במספרים", body: "מה עשוי להשתנות בקצבה החודשית, בכספים החד־פעמיים ובמיסוי בכל חלופה." },
+    { title: "תמונת מס בפרישה", body: "מיפוי הטבות המס והנושאים שיש לבדוק או להסדיר במסגרת הפרישה." },
+    { title: "סיכום מסודר להמשך הדרך", body: "ריכוז הנתונים, האפשרויות, המשמעויות הכספיות והצעדים הבאים." }
   ],
   howTitle: "איך זה עובד?",
   steps: [
-    { n: "1", title: "שיחת התאמה", body: "שיחה קצרה להבנת המצב, הצרכים ומטרת התכנון." },
-    { n: "2", title: "איסוף מסמכים", body: "רשימה מסודרת של המסמכים והנתונים הנדרשים." },
+    { n: "1", title: "שיחת התאמה ללא עלות", body: "שיחה ראשונית להבנת הצרכים ולבדיקת התאמת השירות. במידת הצורך יוסבר תהליך ההמשך והעלות." },
+    { n: "2", title: "איסוף מסמכים", body: "לאחר אישור היקף השירות והעלות, תקבלו רשימה מסודרת של המסמכים והנתונים הנדרשים לתכנון." },
     { n: "3", title: "מיפוי וחישוב", body: "ריכוז הקרנות, הפוליסות, הקצבאות והיבטי המס במקום אחד." },
     { n: "4", title: "השוואת חלופות", body: "האפשרויות השונות והמשמעות הכספית של כל אחת." },
     { n: "5", title: "סיכום וליווי", body: "מסמך סיכום מסודר, וליווי בהמשך בהתאם לשירות שנבחר." }
@@ -419,7 +446,7 @@ const HE = {
   faqTitle: "שאלות נפוצות",
   faq: [
     { q: "מתי כדאי להתחיל תכנון פרישה?", a: "כדאי להתחיל לפני משיכת פיצויים, התחלת קצבה, קיבוע זכויות או קבלת החלטות משמעותיות לגבי הכספים הפנסיוניים." },
-    { q: "האם שיחת ההתאמה באמת ללא עלות?", a: "כן, וללא צורך בתשלום דרך האתר. מטרת השיחה היא להבין את המצב ואת הצורך." },
+    { q: "האם שיחת ההתאמה באמת ללא עלות?", a: "כן. שיחת ההתאמה הראשונית היא ללא עלות וללא התחייבות. במהלך השיחה נברר מה הצרכים שלכם והאם תכנון פרישה אישי יכול להתאים למצבכם. אם נחליט להתקדם, אציג את שלבי העבודה ואת עלות השירות לפני תחילת התהליך." },
     { q: "מה קורה אחרי שיחת ההתאמה?", a: "אם השירות מתאים לצורך שלכם, יוצגו היקף העבודה והעלות מראש — לפני תחילת התהליך. שירותים בתשלום נקבעים בנפרד לאחר השיחה." },
     { q: "האם צריך להכין את כל המסמכים לפני השיחה הראשונה?", a: "לא. בשיחת ההתאמה נבין את המצב, ולאחר מכן תקבלו רשימה מסודרת של המסמכים והנתונים הנדרשים." },
     { q: "כבר התחלתי לקבל פנסיה. האם עדיין אפשר לבצע בדיקה?", a: "כן. גם לאחר תחילת הקצבה אפשר לבחון את המצב בהתאם לפעולות שכבר בוצעו — ולבדוק אם נותרו נושאים פתוחים, למשל קיבוע זכויות, תיאום מס או זכאות בביטוח לאומי." },
@@ -427,9 +454,10 @@ const HE = {
     { q: "יש לי ביטוח מנהלים ישן. האם הוא נבדק במסגרת התהליך?", a: "כן. בפוליסות ישנות חשוב במיוחד לבדוק את תנאי הפוליסה, מסלולי הקצבה והזכויות הקיימות לפני ביצוע פעולה." },
     { q: "האם השירות ניתן גם ברוסית?", a: "כן. כל התהליך ניתן לביצוע בעברית או ברוסית." }
   ],
-  finalTitle: "רוצים להבין איך יכולה להיראות הפרישה שלכם?",
-  finalBody: "בשיחת התאמה קצרה נבדוק את המצב שלכם, נבין אילו נתונים קיימים ומה נדרש כדי לבנות תמונת פרישה מסודרת.",
-  finalHighlight: "שיחת התאמה ללא עלות וללא התחייבות",
+  finalTitle: "רוצים לבדוק אם אתם משלמים יותר מס ממה שאתם חייבים?",
+  finalBody: "לקראת הפרישה או לאחר שכבר התחלתם לקבל פנסיה, כדאי לבדוק אם אתם מנצלים את הטבות המס והפטורים שעשויים להגיע לכם.",
+  finalBody2: "השאירו פרטים ואחזור אליכם לשיחת התאמה ללא עלות, שבה נברר אילו נושאים כדאי לבדוק והאם תכנון פרישה אישי יכול להתאים לכם.",
+  finalHighlight: "ללא עלות וללא התחייבות",
   priceNote: "אם השירות מתאים לצורך שלכם, היקף העבודה והעלות יוצגו מראש — לפני תחילת התהליך.",
   finalCta: "לתיאום שיחה",
   trustStrip: ["תהליך אישי", "הסברים בגובה העיניים", "עברית ורוסית", "שיחת התאמה ללא התחייבות"],
@@ -444,7 +472,7 @@ const HE = {
   thanksNote: "אם נוח לכם מיידית — אפשר גם להתקשר או לכתוב ב־WhatsApp.",
   footerName: "חנה פינקלשטיין | מתכננת פרישה מוסמכת • רואת חשבון",
   footerLine: "שירות בעברית וברוסית | Zoom | טלפון | אזור רחובות והסביבה",
-  fl1: "מדיניות פרטיות", fl2: "הצהרת נגישות", fl3: "צור קשר",
+  formPrivacy: "השימוש בפרטים לפי", fl1: "מדיניות פרטיות", fl2: "הצהרת נגישות", fl3: "צור קשר",
   disclaimer: "המידע באתר הוא מידע כללי ואינו מהווה תחליף לבדיקה אישית של נתוני הפרישה, תנאי המוצרים והיבטי המס הרלוונטיים לכל אדם.",
   stickyCall: "שיחת התאמה"
 };
@@ -459,8 +487,9 @@ const RU = {
   navAxis: "Что и когда", nav1: "Что вы получите", nav2: "Как это работает", nav3: "Обо мне", navLinks: "Полезное", nav4: "Вопросы и ответы", nav5: "Контакты",
   ctaHeader: "Записаться на консультацию",
   heroEyebrow: "Пенсионное планирование",
-  heroTitle: "Выход на пенсию уже близко? Самое время увидеть полную картину.",
-  heroSub: "Пенсия, выходное пособие, налоги, кибуа зхуйот и Битуах Леуми — собранные в один расчет, а не разбросанные по семи отчетам.",
+  heroTitle: "Скоро на пенсию? Возможно, вам положены налоговые льготы, которые помогут сохранить немало денег.",
+  heroSub: "За годы работы вы накопили пенсию, выходное пособие и сбережения. Но знаете ли вы, сколько налогов на самом деле придется с них заплатить?",
+  heroSub2: "При выходе на пенсию действуют налоговые освобождения и льготы, о которых знают не все. Грамотное планирование поможет использовать положенные вам права, снизить подоходный налог и сохранить больше денег на пенсионные годы.",
   heroNote: "Чтобы вы заранее знали, сколько будет на руки — и во что обойдется каждый из возможных вариантов.",
   ctaHero: "Первая консультация — бесплатно",
   ctaWhats: "Написать в WhatsApp",
@@ -476,20 +505,34 @@ const RU = {
   textSize: "Размер текста",
   fsSmall: "Обычный размер текста", fsMed: "Крупный текст", fsLarge: "Очень крупный текст",
   caseTag: "Из практики",
-  caseTitle: "Что находит внимательная проверка",
-  caseBody: "Мужчина, 64 года, 31 год работы по найму. Обратился, чтобы выяснить, стоит ли выходить на пенсию в конце года. При проверке нашлись два неактивных пенсионных фонда 1990-х годов, которых вообще не было в расчете, показанном ему раньше, и старый полис с выгодным пенсионным коэффициентом — при получении денег одной суммой он был бы потерян.",
-  caseOutcome: "Разница между двумя вариантами выхода — 780 ₪ в месяц. И все это выяснилось до того, как он что-либо предпринял.",
+  caseTitle: "Что может выявить внимательная проверка?",
+  caseBody: "Наемный работник, 64 года, 31 год стажа, хотел понять, может ли он выйти на пенсию в конце года. При разборе его пенсионных продуктов обнаружились два неактивных фонда, которые не вошли в первоначальный расчет, а также полис «битуах менахалим» с условиями, которые важно было проверить до снятия денег.",
+  caseOutcome: "Этот случай показывает, почему важно собрать всю информацию и сравнить варианты выхода на пенсию до того, как принимать решения, которые могут повлиять на размер пенсии и налоги.",
   caseNote: "Подробности изменены — из соображений конфиденциальности.",
   axisTitle: "Что происходит и когда",
   axisSub: "У каждого возраста свои решения. Планирование начинается с этих дат.",
   axis: [
-    { age: "60", kicker: "Выходное пособие", body: "Снимете сейчас — и налоговое освобождение, которое понадобится потом для самой пенсии, может уменьшиться." },
+    { age: "60", kicker: "Возможность раннего начала пенсии", body: "В некоторых пенсионных продуктах пенсию можно начать получать с 60 лет — в зависимости от условий программы. Важно заранее оценить, как это повлияет на размер будущей пенсии и на налоги." },
     { age: "62–65", kicker: "Пенсионный возраст, женщины", body: "Зависит от года рождения и постепенно повышается. С этого возраста проверяют право на пособие по старости." },
-    { age: "67", kicker: "Пенсионный возраст, мужчины", body: "Право на пособие по старости — и точка, от которой считают кибуа зхуйот." },
-    { age: "67–70", kicker: "Проверка доходов", body: "В эти годы заработок может уменьшить пособие от Битуах Леуми." },
-    { age: "70", kicker: "Без проверки доходов", body: "Пособие платят независимо от заработка, и за каждый год отсрочки добавляют 5%." }
+    { age: "67", kicker: "Пенсионный возраст, мужчины", body: "С этого возраста проверяется право на пособие по старости — с учетом условий и проверки доходов. Кибуа зхуйот рассматривается по «возрасту права» для налоговых целей." },
+    { age: "67–70", kicker: "Проверка доходов", body: "С пенсионного возраста и до 70 лет право на пособие по старости может зависеть от ваших доходов. У женщин этот период может начаться раньше 67 лет." },
+    { age: "70", kicker: "Без проверки доходов", body: "С 70 лет право на пособие по старости не зависит от проверки доходов. Надбавка за отсрочку — 5% за год — может начисляться за годы отсрочки между пенсионным возрастом и 70 годами, при соблюдении условий." }
   ],
   axisNote: "Возрасты даны в общем виде: пенсионный возраст для женщин зависит от года рождения, а каждое право проверяется отдельно.",
+  taxTitle: "Возможно, вам положены налоговые льготы, которыми вы еще не воспользовались.",
+  taxLead: "Не все налоговые льготы при выходе на пенсию применяются автоматически и в полном объеме. Иногда нужно проверить данные, сделать выбор или подать заявление, чтобы получить то, что вам положено.",
+  taxItems: [
+    { n: "01", title: "Меньше налога на пенсию", body: "Проверка налогового освобождения для ежемесячной пенсии и возможности уменьшить налог в пенсионные годы." },
+    { n: "02", title: "Правильное налогообложение выходного пособия и пенсионных выплат", body: "Сравнение вариантов получения денег, распределения налога по годам и использования освобождений — с учетом того, как это отразится на будущей пенсии." },
+    { n: "03", title: "Проверка права на возврат налога", body: "Даже если вы уже на пенсии, возможно, вы переплатили налог. В подходящих случаях можно проверить право на возврат за прошлые годы." }
+  ],
+  taxFactTitle: "А вы знали? Пенсия тоже может частично освобождаться от налога.",
+  taxFactFig: "5 422 ₪",
+  taxFactFigLabel: "максимальное освобождение в месяц · 2026",
+  taxFactLine: "До 5 422 ₪ ежемесячной пенсии могут быть освобождены от налога в 2026 году.",
+  taxFactBody: "Это максимальная сумма ежемесячного дохода, которая может быть освобождена от налога по статье 9а — при соблюдении условий. Это не сумма экономии на налоге. Реальная экономия зависит от размера пенсии, других доходов и уже использованных льгот.",
+  taxFactLink: "Официальное руководство Налогового управления (PDF, на иврите)",
+  taxNote: "Реальная экономия зависит от ваших личных данных и прав, предусмотренных законом.",
   s1Title: "Пенсия — это не только вопрос «сколько я буду получать»",
   s1Sub: "При выходе на пенсию сразу несколько тем влияют друг на друга. Решение по одной меняет налоги, размер выплаты, выходное пособие и то, сколько средств останется дальше.",
   cards: [
@@ -501,17 +544,17 @@ const RU = {
     { n: "06", title: "Супруг(а) и наследование", body: "Как выбранный вариант выплат отразится на доходе семьи и на том, что останется близким." }
   ],
   s2Title: "В конце вы получаете не папку, а ответ",
-  s2Sub: "Что есть сегодня, сколько будет на руки и во что обойдется каждый вариант — на нескольких страницах, которые можно спокойно перечитать.",
+  s2Sub: "Вы получите сводную картину ожидаемых доходов и прав, сравнение вариантов выхода на пенсию и понимание того, что каждый выбор означает в деньгах.",
   deliverables: [
-    { title: "Откуда пойдут деньги", body: "Какие суммы, из каких фондов и полисов и с какого месяца." },
-    { title: "Варианты рядом, в цифрах", body: "По каждому — сумма на руки, разовая выплата и налог." },
-    { title: "Налоговая часть", body: "Что нужно оформить, в какие сроки и что это дает." },
-    { title: "Итоговый документ", body: "Расчеты, варианты и список действий — в одном файле." }
+    { title: "Карта источников дохода", body: "Ожидаемые пенсии и другие доходы: откуда они поступают и с какого момента начнутся выплаты." },
+    { title: "Сравнение вариантов в цифрах", body: "Как в каждом варианте может измениться ежемесячная пенсия, единовременные выплаты и налогообложение." },
+    { title: "Налоги при выходе на пенсию", body: "Какие налоговые льготы вам положены и что нужно проверить или оформить при выходе на пенсию." },
+    { title: "Итоговый документ на будущее", body: "Данные, варианты, их финансовые последствия и дальнейшие шаги — в одном месте." }
   ],
   howTitle: "Как это работает?",
   steps: [
-    { n: "1", title: "Первая консультация", body: "Короткий разговор: в какой вы точке и чего ждете от пенсии." },
-    { n: "2", title: "Сбор документов", body: "Вы получите точный список: что нужно и где это взять." },
+    { n: "1", title: "Первая консультация — бесплатно", body: "Первый разговор, чтобы понять ваши задачи и подходит ли вам эта услуга. При необходимости я объясню дальнейший порядок работы и стоимость." },
+    { n: "2", title: "Сбор документов", body: "После того как объем услуги и стоимость согласованы, вы получите четкий список документов и данных, нужных для планирования." },
     { n: "3", title: "Анализ и расчет", body: "Свожу фонды, полисы, купот гемель, выплаты и налоги в один расчет." },
     { n: "4", title: "Сравнение вариантов", body: "По каждому варианту — конкретные суммы, а не общие слова." },
     { n: "5", title: "Итог и сопровождение", body: "Итоговый документ, а дальше — сопровождение в том объеме, который выберете." }
@@ -546,7 +589,7 @@ const RU = {
   faqTitle: "Вопросы и ответы",
   faq: [
     { q: "Когда мне начинать?", a: "До того как снимете выходное пособие, начнете получать пенсию, оформите кибуа зхуйот или примете любое крупное решение о пенсионных деньгах. После этого выбор резко сужается." },
-    { q: "Первая консультация правда бесплатная?", a: "Да, и платить через сайт не нужно. Задача консультации — понять вашу ситуацию и решить, чем я могу помочь." },
+    { q: "Первая консультация правда бесплатная?", a: "Да. Первая консультация бесплатна и ни к чему вас не обязывает. Мы выясним, что вам нужно и подходит ли вам индивидуальное пенсионное планирование. Если решим двигаться дальше, я заранее расскажу, как будет построена работа и сколько она стоит, — до начала процесса." },
     { q: "Что будет после консультации?", a: "Если услуга вам подходит, объем работы и стоимость мы согласуем заранее — до начала." },
     { q: "Нужно ли собирать документы заранее?", a: "Нет. Сначала разберем ситуацию, а список документов вы получите потом — с указанием, где что брать." },
     { q: "Я уже получаю пенсию. Есть смысл проверять?", a: "Да. Даже после начала выплат видно, что уже сделано, и можно проверить, не осталось ли открытых вопросов: кибуа зхуйот, тиум мас или право на пособие в Битуах Леуми." },
@@ -554,9 +597,10 @@ const RU = {
     { q: "У меня старый битуах менаалим. Его тоже смотрят?", a: "Обязательно. В старых полисах условия и коэффициенты нередко заметно лучше сегодняшних — и потерять их можно одним неверным действием." },
     { q: "Можно ли все на русском?", a: "Да. Консультация, документы и итоговый расчет — на русском или на иврите, как вам удобнее." }
   ],
-  finalTitle: "Хотите увидеть, как сложится ваша пенсия?",
-  finalBody: "В короткой консультации разберем вашу ситуацию и определим, каких данных не хватает для полного расчета.",
-  finalHighlight: "Первая консультация — бесплатно, без обязательств",
+  finalTitle: "Хотите проверить, не платите ли вы больше налога, чем должны?",
+  finalBody: "Перед выходом на пенсию или когда вы уже получаете пенсию, стоит проверить, пользуетесь ли вы налоговыми льготами и освобождениями, которые могут вам полагаться.",
+  finalBody2: "Оставьте свои данные, и я свяжусь с вами, чтобы договориться о бесплатной консультации. На ней мы выясним, что стоит проверить и подходит ли вам индивидуальное пенсионное планирование.",
+  finalHighlight: "Бесплатно и без обязательств",
   priceNote: "Если услуга вам подходит, объем работы и стоимость мы согласуем заранее — до начала.",
   finalCta: "Записаться на консультацию",
   trustStrip: ["Индивидуально, по вашим данным", "Понятные объяснения", "Русский и иврит", "Без обязательств"],
@@ -571,7 +615,7 @@ const RU = {
   thanksNote: "Если удобнее сразу — позвоните или напишите в WhatsApp.",
   footerName: "Хана Финкельштейн | пенсионное планирование",
   footerLine: "Русский и иврит | Zoom | телефон | район Реховота",
-  fl1: "Политика конфиденциальности", fl2: "Доступность сайта", fl3: "Контакты",
+  formPrivacy: "Данные используются согласно документу", fl1: "Политика конфиденциальности", fl2: "Доступность сайта", fl3: "Контакты",
   disclaimer: "Информация на сайте носит общий характер и не заменяет проверки ваших личных пенсионных данных, условий ваших программ и вашей налоговой ситуации.",
   stickyCall: "Консультация"
 };
@@ -626,8 +670,11 @@ class Component extends DCLogic {
     };
     window.addEventListener("scroll", this._onScroll, { passive: true });
     window.addEventListener("resize", this._onResize);
+    try { this._isDc = /\.dc\.html$/.test(location.pathname); if (new URLSearchParams(location.search).get("lang") === "ru") this.setState({ lang: "ru" }); } catch (e) {}
     this._measure();
     this.syncHead();
+    requestAnimationFrame(() => this.checkFit());
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.checkFit());
     try {
       const saved = parseInt(localStorage.getItem("cf-font-scale") || "0", 10);
       if (saved === 1 || saved === 2) { this.setState({ fontScale: saved }); this.applyZoom(saved); }
@@ -635,6 +682,15 @@ class Component extends DCLogic {
   }
   componentDidUpdate(prev, prevState) {
     if (!prevState || prevState.lang !== this.state.lang) this.syncHead();
+    if (prevState && (prevState.lang !== this.state.lang || prevState.fontScale !== this.state.fontScale) && this.state.collapseAt) { this.setState({ collapseAt: 0 }); return; }
+    this.checkFit();
+  }
+  checkFit() {
+    const row = this._rowRef && this._rowRef.current, name = this._nameRef && this._nameRef.current;
+    if (!row || !name) return;
+    if (this.state.vw < 760 || this.state.vw <= (this.state.collapseAt || 0)) return;
+    const over = row.scrollWidth > row.clientWidth + 1 || name.scrollWidth > name.clientWidth + 1;
+    if (over) this.setState({ collapseAt: this.state.vw });
   }
   componentWillUnmount() {
     window.removeEventListener("scroll", this._onScroll);
@@ -657,7 +713,7 @@ class Component extends DCLogic {
     const t = lang === "ru" ? RU : HE;
     const rtl = lang === "he";
     const accent = this.props.accentColor ?? "#205080";
-    const narrow = this.state.vw < (rtl ? 1320 : 1700);
+    const narrow = this.state.vw < 760 || this.state.vw <= (this.state.collapseAt || 0);
     const langBtn = (on) =>
       "border:0; cursor:pointer; padding:9px 14px; border-radius:3px; font-size:16px; font-weight:600; white-space:nowrap; background:" +
       (on ? accent : "transparent") + "; color:" + (on ? "#fff" : "#4C5D6B") + ";";
@@ -674,7 +730,9 @@ class Component extends DCLogic {
       dir: rtl ? "rtl" : "ltr",
       telLink: "tel:+972" + (phoneDigits.charAt(0) === "0" ? phoneDigits.slice(1) : phoneDigits),
       phoneDisplay: phoneRaw,
-      utilRowStyle: "max-width:1240px; margin:0 auto; display:flex; align-items:center; gap:10px; padding:7px " + (narrow ? "14px" : "22px") + ";",
+      rowRef: this._rowRef || (this._rowRef = React.createRef()),
+      nameRef: this._nameRef || (this._nameRef = React.createRef()),
+      utilRowStyle: "max-width:1440px; margin:0 auto; display:flex; align-items:center; gap:10px; padding:7px " + (narrow ? "14px" : "22px") + ";",
       callLabelStyle: narrow ? "display:none;" : "font-size:15.5px; color:#3A4653;",
       fsLabelStyle: narrow ? "display:none;" : "font-size:15px; color:#3A4653;",
       fs0Btn: fsBtn(0, 14), fs1Btn: fsBtn(1, 17), fs2Btn: fsBtn(2, 20),
@@ -684,7 +742,7 @@ class Component extends DCLogic {
       isRu: !rtl,
       langOptions: rtl ? ["עברית", "Русский"] : ["Русский", "עברית"],
       headerPad: this.state.scrolled ? "10px" : "16px",
-      headerRowStyle: "max-width:1240px; margin:0 auto; display:flex; align-items:center; transition:padding .25s ease; padding:" +
+      headerRowStyle: "max-width:1440px; margin:0 auto; display:flex; align-items:center; transition:padding .25s ease; padding:" +
         (this.state.scrolled ? "10px " : "16px ") + (narrow ? "14px" : "22px") + "; gap:" + (narrow ? "12px" : "22px") + ";",
       brandNameStyle: "font-family:'Frank Ruhl Libre','PT Serif',serif; font-weight:700; color:#14273C; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:" + (narrow ? "17px" : "19px") + ";",
       roleStyle: narrow ? "display:none;" : "font-size:13.5px; color:#3A4653;",
@@ -694,6 +752,8 @@ class Component extends DCLogic {
       ruBtn: langBtn(!rtl),
       setHe: () => this.setState({ lang: "he" }),
       setRu: () => this.setState({ lang: "ru" }),
+      accessibilityLink: (this._isDc ? "Accessibility Statement.dc.html" : "accessibility") + (this.state.lang === "ru" ? "?lang=ru" : ""),
+      privacyLink: (this._isDc ? "Privacy Policy.dc.html" : "privacy") + (this.state.lang === "ru" ? "?lang=ru" : ""),
       waLink: "https://wa.me/" + (this.props.whatsappNumber ?? "972544866718").replace(/[^0-9]/g, ""),
       resourcesLink: this.props.resourcesUrl ?? "#",
       navStyle: narrow ? "display:none;" : "display:flex; gap:20px; font-size:16px; color:#3A4653; white-space:nowrap;",
